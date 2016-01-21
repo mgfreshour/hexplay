@@ -14,7 +14,7 @@ var karma = require('karma').Server;
 gulp.task('test:client', function (done) {
     new karma({
         configFile: __dirname + '/karma.conf.js',
-        singleRun: true
+        singleRun: !gutil.env.watch
     }, done).start();
 });
 
@@ -32,7 +32,6 @@ gulp.task('test:e2e', ['clean', 'webpack', 'e2e'], function () {
     seleniumServer.kill();
     process.exit(1);
 });
-
 
 var nodeMon = require('nodemon');
 gulp.task('www', function () {

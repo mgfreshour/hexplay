@@ -11,7 +11,7 @@ module.exports = {
     ],
     entry: {
         index: './index.html',
-        test: ['babel-polyfill', './test.js']
+        //test: ['babel-polyfill', './test.js']
     },
     output: {
         path: path.join(__dirname, 'public'),
@@ -32,7 +32,7 @@ module.exports = {
             {
                 test: /\.js$/,
                 loader: 'babel',
-                exclude: [/node_modules/, /\.spec\.js/],
+                exclude: [/node_modules/],
                 query: {
                     plugins: ['transform-runtime'],
                     presets: ['es2015']
