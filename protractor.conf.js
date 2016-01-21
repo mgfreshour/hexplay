@@ -13,9 +13,7 @@ var config = {
   baseUrl: 'http://localhost:' + (process.env.PORT || '9000'),
 
   // list of files / patterns to load in the browser
-  specs: [
-    '**/*.e2e.spec.js'
-  ],
+  specs: ['**/*.e2e.spec.js'],
 
   // Patterns to exclude.
   exclude: [],
@@ -40,12 +38,12 @@ var config = {
   // See the full list at https://github.com/jasmine/jasmine-npm
   jasmineNodeOpts: {
     defaultTimeoutInterval: 30000,
-    print: function() {}  // for jasmine-spec-reporter
+    print: function() {}, // for jasmine-spec-reporter
   },
 
   // Prepare environment for tests
   params: {
-    serverConfig: require('./server/config/environment')
+    serverConfig: require('./server/config/environment'),
   },
 
   //onPrepare: function() {

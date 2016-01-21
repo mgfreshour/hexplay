@@ -12,9 +12,7 @@ module.exports = function (config) {
 
 
         // list of files / patterns to load in the browser
-        files: [
-            'client/**/*.spec.js'
-        ],
+        files: ['client/**/*.spec.js'],
 
 
         // list of files to exclude
@@ -25,12 +23,12 @@ module.exports = function (config) {
         // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
         preprocessors: {
             // add webpack as preprocessor
-            'client/**/*.spec.js': ['webpack']
+            'client/**/*.spec.js': ['webpack'],
         },
 
         webpackMiddleware: {
             // make webpack be quiet
-            noInfo: true
+            noInfo: true,
         },
         webpack: require('./webpack.config.js'),
 
@@ -69,6 +67,6 @@ module.exports = function (config) {
 
         // Concurrency level
         // how many browser should be started simultaneous
-        concurrency: 1
+        concurrency: 1,
     })
 };

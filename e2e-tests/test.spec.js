@@ -1,3 +1,4 @@
+/* global browser */
 'use strict';
 
 describe('page title', () => {

@@ -53,7 +53,7 @@ class Array2d extends EventEmitter {
             }
             this.data.push(row);
         }
-    };
+    }
 
     /**
      * Iterates through each value in the array and passes it to callback function.
@@ -67,7 +67,7 @@ class Array2d extends EventEmitter {
             }
 
         }
-    };
+    }
 
     /**
      * Fills the array with whatever value was passed.
@@ -80,7 +80,7 @@ class Array2d extends EventEmitter {
                 this.set(x, y, value);
             }
         }
-    };
+    }
 
     /**
      * Iterates through each value in the array and passes it to callback function, then sets the value to what the callback returned.
@@ -93,7 +93,7 @@ class Array2d extends EventEmitter {
                 this.data[y][x] = callback(x, y, this.data[y][x]);
             }
         }
-    };
+    }
 
     /**
      * Sets multiple coordinate values at once.
@@ -105,7 +105,7 @@ class Array2d extends EventEmitter {
         for (n = 0; n < coords.length; n++) {
             this.set(coords[n].x, coords[n].y, value);
         }
-    };
+    }
 
     /**
      * Sets the value at a coordinate.
@@ -131,7 +131,7 @@ class Array2d extends EventEmitter {
         }
 
         this.emit('change', x, y, value, old);
-    };
+    }
 
 
     /**
@@ -142,7 +142,7 @@ class Array2d extends EventEmitter {
      */
     get (x, y) {
         return this.data[y][x];
-    };
+    }
 
     /**
      * Returns the height of the map.
@@ -150,7 +150,7 @@ class Array2d extends EventEmitter {
      */
     getHeight () {
         return this.data.length;
-    };
+    }
 
     /**
      * Returns the width of the map.
@@ -158,7 +158,7 @@ class Array2d extends EventEmitter {
      */
     getWidth () {
         return this.data[0].length;
-    };
+    }
 
     /**
      * Creates a printable string representation of the 2d array.
@@ -174,7 +174,7 @@ class Array2d extends EventEmitter {
         }
 
         return out;
-    };
+    }
 
 }
 

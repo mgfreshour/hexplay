@@ -28,7 +28,7 @@ class Hex {
                 {x: x, y: y + 1},
                 //{x:x-1, y:y-1},
                 {x: x - 1, y: y},
-                {x: x - 1, y: y + 1}
+                {x: x - 1, y: y + 1},
             ];
         } else {
             possible = [
@@ -39,7 +39,7 @@ class Hex {
                 {x: x, y: y},
                 {x: x, y: y + 1},
                 {x: x - 1, y: y - 1},
-                {x: x - 1, y: y}
+                {x: x - 1, y: y},
                 //{x:x-1, y:y+1}
             ];
         }
@@ -52,50 +52,50 @@ class Hex {
         }
 
         return ret;
-    };
+    }
 
 
     /**
      * Recursively walks a hex map starting from x,y and iterating through adjacent hex.
      * @param {Number} x The x coordinate.
      * @param {Number} y The y coordinate.
-     * @param {Number} max_depth how far from the starting hex to walk.  Defaults to 1.
+     * @param {Number} maxDepth how far from the starting hex to walk.  Defaults to 1.
      * @param {Function} callback function to call with each step
      * @param {Number} height is the height of 2d bitmap representing the hex map
      * @param {Number} width is the height of 2d bitmap representing the hex map
-     * @param {Number} [current_depth] (used on recursion only!) how far we've recursed from original point
+     * @param {Number} [currentDepth] (used on recursion only!) how far we've recursed from original point
      * @param {Array2d} [bitmap] (used on recursion only!) contains info about which hex's we've visited
-     * @param {Number|undefined} [prev_x] coordinate of the hex we're recursing from
-     * @param {Number|undefined} [prev_y] coordinate of the hex we're recursing from
+     * @param {Number|undefined} [prevX] coordinate of the hex we're recursing from
+     * @param {Number|undefined} [prevY] coordinate of the hex we're recursing from
      */
-    static walkAdjacent (x, y, max_depth, callback, height, width, current_depth, bitmap, prev_x, prev_y) {
-        current_depth = current_depth || 1;
-        max_depth = max_depth || 1;
-        prev_x = _.isUndefined(prev_x) ? -1 : prev_x;
-        prev_y = _.isUndefined(prev_y) ? -1 : prev_y;
+    static walkAdjacent (x, y, maxDepth, callback, height, width, currentDepth, bitmap, prevX, prevY) {
+        currentDepth = currentDepth || 1;
+        maxDepth = maxDepth || 1;
+        prevX = _.isUndefined(prevX) ? -1 : prevX;
+        prevY = _.isUndefined(prevY) ? -1 : prevY;
         var n;
 
         if (!bitmap) {
             bitmap = new Array2d(height, width);
         }
 
-        if (current_depth - 1 === max_depth) {
+        if (currentDepth - 1 === maxDepth) {
             return;
         }
         var coords = Hex.getAdjacentCoords(x, y, height, width);
 
         // Walk thru the adjacent squares and recurse into their neighbors
         for (n = 0; n < coords.length; n++) {
-            if (bitmap.get(coords[n].x, coords[n].y) >= current_depth - max_depth ||
+            if (bitmap.get(coords[n].x, coords[n].y) >= currentDepth - maxDepth ||
                 bitmap.get(coords[n].x, coords[n].y) === 0
             ) {
-                bitmap.set(coords[n].x, coords[n].y, current_depth);
-                callback(coords[n].x, coords[n].y, current_depth, prev_x, prev_y);
-                Hex.walkAdjacent(coords[n].x, coords[n].y, max_depth, callback, height, width, current_depth + 1,
+                bitmap.set(coords[n].x, coords[n].y, currentDepth);
+                callback(coords[n].x, coords[n].y, currentDepth, prevX, prevY);
+                Hex.walkAdjacent(coords[n].x, coords[n].y, maxDepth, callback, height, width, currentDepth + 1,
                     bitmap, coords[n].x, coords[n].y);
             }
         }
-    };
+    }
 
     /**
      * Converts from screen coordinates to map coordinates.
@@ -111,7 +111,7 @@ class Hex {
         var posX = screenX;
         var posY = screenY;
 
-        var x, y, z, ix, iy, iz, s, abs_dx, abs_dy, abs_dz;
+        var x, y, z, ix, iy, iz, s, absDx, absDy, absDz;
 
         // ----------------------------------------------------------------------
         // --- Convert mouse click to hex grid coordinate
@@ -127,12 +127,12 @@ class Hex {
         iz = Math.floor(z + 0.5);
         s = ix + iy + iz;
         if (s) {
-            abs_dx = Math.abs(ix - x);
-            abs_dy = Math.abs(iy - y);
-            abs_dz = Math.abs(iz - z);
-            if (abs_dx >= abs_dy && abs_dx >= abs_dz) {
+            absDx = Math.abs(ix - x);
+            absDy = Math.abs(iy - y);
+            absDz = Math.abs(iz - z);
+            if (absDx >= absDy && absDx >= absDz) {
                 ix -= s;
-            } else if (abs_dy >= abs_dx && abs_dy >= abs_dz) {
+            } else if (absDy >= absDx && absDy >= absDz) {
                 iy -= s;
             } else {
                 iz -= s;
@@ -142,10 +142,10 @@ class Hex {
         // Done!
         return {
             x: ix,
-            y: (iy - iz + (1 - ix % 2)) / 2 - 0.5
+            y: (iy - iz + (1 - ix % 2)) / 2 - 0.5,
         };
 
-    };
+    }
 
     /**
      * Calculates where to start drawing a hex.
@@ -156,9 +156,9 @@ class Hex {
     static _calculateOffsetPosition (mapX, mapY) {
         return {
             x: (mapX * Hex.HEX_SIDE * 1.5),
-            y: (mapY * Hex.HEX_HEIGHT + (mapX % 2) * Hex.HEX_HEIGHT / 2)
+            y: (mapY * Hex.HEX_HEIGHT + (mapX % 2) * Hex.HEX_HEIGHT / 2),
         };
-    };
+    }
 
     /**
      * Converts array space coordinates into screen space coordinates.
@@ -169,9 +169,9 @@ class Hex {
     static convertArrayToScreenCoords (x, y) {
         return {
             x: (x * Hex.HEX_SIDE * 1.5),
-            y: (y * Hex.HEX_HEIGHT + (x % 2) * Hex.HEX_HEIGHT / 2)
+            y: (y * Hex.HEX_HEIGHT + (x % 2) * Hex.HEX_HEIGHT / 2),
         };
-    };
+    }
 
     /**
      * Converts hex space coordinates into array space coordinates.
@@ -182,9 +182,9 @@ class Hex {
     static convertHexToArrayCoords (x, y) {
         return {
             x: x + y,
-            y: Math.floor((x + y) / 2) - y
+            y: Math.floor((x + y) / 2) - y,
         };
-    };
+    }
 
     /**
      * Converts array space coordinates into hex space coordinates.
@@ -195,9 +195,9 @@ class Hex {
     static convertArrayToHexCoords (x, y) {
         return {
             x: y + Math.ceil(x / 2),
-            y: -1 * (y - Math.floor(x / 2))
+            y: -1 * (y - Math.floor(x / 2)),
         };
-    };
+    }
 
 
     /**
@@ -217,7 +217,7 @@ class Hex {
             ret = Math.abs(dx) + Math.abs(dy);
         }
         return ret;
-    };
+    }
 }
 
 /**

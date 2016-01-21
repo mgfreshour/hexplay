@@ -15,7 +15,7 @@ describe('utils.Hex', function () {
                 {x: 1, y: 1},
                 {x: 1, y: 2},
                 {x: 0, y: 1},
-                {x: 0, y: 2}
+                {x: 0, y: 2},
             ];
             actual = Hex.getAdjacentCoords(1, 1, height, width);
             expect(actual.length).toEqual(expected.length);
@@ -30,7 +30,7 @@ describe('utils.Hex', function () {
                 {x: 1, y: 0},
                 {x: 1, y: 1},
                 {x: 0, y: 0},
-                {x: 0, y: 1}
+                {x: 0, y: 1},
             ];
             actual = Hex.getAdjacentCoords(1, 0, height, width);
             expect(actual.length).toEqual(expected.length);
@@ -42,7 +42,7 @@ describe('utils.Hex', function () {
             var expected = [
                 {x: 1, y: 0},
                 {x: 0, y: 0},
-                {x: 0, y: 1}
+                {x: 0, y: 1},
             ];
             actual = Hex.getAdjacentCoords(0, 0, height, width);
             expect(actual.length).toEqual(expected.length);
@@ -58,17 +58,17 @@ describe('utils.Hex', function () {
                 [1, 2, 2, 3, 4],
                 [2, 3, 3, 4, 4],
                 [3, 4, 4, 5, 5],
-                [4, 5, 5, 6, 6]
+                [4, 5, 5, 6, 6],
             ];
-            var test_values = new Array2d(height, width, 'h');
-            var max_depth = 6;
-            var callback = function (x, y, current_depth) {
-                if (test_values.get(x, y) === 'h' || test_values.get(x, y) > current_depth) {
-                    test_values.set(x, y, current_depth);
+            var testValues = new Array2d(height, width, 'h');
+            var maxDepth = 6;
+            var callback = function (x, y, currentDepth) {
+                if (testValues.get(x, y) === 'h' || testValues.get(x, y) > currentDepth) {
+                    testValues.set(x, y, currentDepth);
                 }
             };
-            Hex.walkAdjacent(0, 0, max_depth, callback, height, width);
-            expect(test_values.data).toEqual(expected);
+            Hex.walkAdjacent(0, 0, maxDepth, callback, height, width);
+            expect(testValues.data).toEqual(expected);
         });
     });
 

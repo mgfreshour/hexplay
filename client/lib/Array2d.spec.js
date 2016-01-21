@@ -116,7 +116,7 @@ describe('utils.Array2d', function () {
         });
 
         it('emits event on change', function (done) {
-            var height = 5, width = 6, events = [];
+            var height = 5, width = 6;
             testee = new Array2d(height, width);
             testee.addListener('change', function (x, y, value, old) {
                 expect([x, y, value, old]).toEqual([1, 2, 'hello', 0]);

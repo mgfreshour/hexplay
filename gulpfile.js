@@ -10,11 +10,11 @@ gulp.task('test:server', function () {
         .pipe(jasmine()); // gulp-jasmine works on file-paths so you can't have any plugins before it
 });
 
-var karma = require('karma').Server;
+var Karma = require('karma').Server;
 gulp.task('test:client', function (done) {
-    new karma({
+    new Karma({
         configFile: __dirname + '/karma.conf.js',
-        singleRun: !gutil.env.watch
+        singleRun: !gutil.env.watch,
     }, done).start();
 });
 
@@ -38,7 +38,7 @@ gulp.task('www', function () {
     wwwServer = nodeMon({
         script: 'bin/www',
         ext: 'js html',
-        env: { 'NODE_ENV': 'development' }
+        env: { 'NODE_ENV': 'development' },
     });
 });
 

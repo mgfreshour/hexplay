@@ -11,9 +11,7 @@ exports.config = {
     // NPM script (see https://docs.npmjs.com/cli/run-script) then the current working
     // directory is where your package.json resides, so `wdio` will be called from there.
     //
-    specs: [
-        './e2e-tests/**/*.spec.js'
-    ],
+    specs: ['./e2e-tests/**/*.spec.js'],
     // Patterns to exclude.
     exclude: [
         // 'path/to/excluded/files'
@@ -32,7 +30,7 @@ exports.config = {
     // https://docs.saucelabs.com/reference/platforms-configurator
     //
     capabilities: [{
-        browserName: 'firefox'
+        browserName: 'firefox',
     }],
     //
     // ===================
@@ -96,13 +94,6 @@ exports.config = {
         //
         // Jasmine default timeout
         defaultTimeoutInterval: 10000,
-        //
-        // The Jasmine framework allows it to intercept each assertion in order to log the state of the application
-        // or website depending on the result. For example it is pretty handy to take a screenshot everytime
-        // an assertion fails.
-        expectationResultHandler: function(passed, assertion) {
-            // do something
-        }
     },
     
     //
@@ -113,25 +104,25 @@ exports.config = {
     // will wait until that promise got resolved to continue.
     //
     // Gets executed before all workers get launched.
-    onPrepare: function() {
-        // do something
-    },
+    //onPrepare: function() {
+    //    // do something
+    //},
     //
     // Gets executed before test execution begins. At this point you will have access to all global
     // variables like `browser`. It is the perfect place to define custom commands.
-    before: function() {
-        // do something
-    },
+    //before: function() {
+    //    // do something
+    //},
     //
     // Gets executed after all tests are done. You still have access to all global variables from
     // the test.
-    after: function(failures, pid) {
-        // do something
-    },
+    //after: function(failures, pid) {
+    //    // do something
+    //},
     //
     // Gets executed after all workers got shut down and the process is about to exit. It is not
     // possible to defer the end of the process using a promise.
-    onComplete: function() {
-        // do something
-    }
+    //onComplete: function() {
+    //    // do something
+    //},
 };

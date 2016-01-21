@@ -1,6 +1,5 @@
 'use strict';
 var path = require('path');
-var webpack = require('webpack');
 
 var isProd = false;
 
@@ -16,18 +15,18 @@ module.exports = {
     output: {
         path: path.join(__dirname, 'public'),
         filename: '[name].js',
-        sourceMapFilename: '[name].map'
+        sourceMapFilename: '[name].map',
     },
     resolve: {
         root: path.join(__dirname, 'scripts'),
-        extensions: ['', '.js', '.json']
+        extensions: ['', '.js', '.json'],
     },
     devtool: isProd ? '' : 'source-map',
     module: {
         loaders: [
             {
                 test: /\.html$/,
-                loader: 'file-loader?name=[path][name].[ext]'
+                loader: 'file-loader?name=[path][name].[ext]',
             },
             {
                 test: /\.js$/,
@@ -35,9 +34,9 @@ module.exports = {
                 exclude: [/node_modules/],
                 query: {
                     plugins: ['transform-runtime'],
-                    presets: ['es2015']
-                }
-            }
-        ]
-    }
+                    presets: ['es2015'],
+                },
+            },
+        ],
+    },
 };
