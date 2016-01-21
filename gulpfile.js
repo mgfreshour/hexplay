@@ -5,18 +5,34 @@ var gutil = require('gulp-util');
 var wwwServer, seleniumServer;
 
 var jasmine = require('gulp-jasmine');
-gulp.task('test-server', function () {
+gulp.task('test:server', function () {
     return gulp.src(['routes/**/*.spec.js'])
         .pipe(jasmine()); // gulp-jasmine works on file-paths so you can't have any plugins before it
 });
 
 var karma = require('karma').Server;
-gulp.task('test-client', function (done) {
+gulp.task('test:client', function (done) {
     new karma({
         configFile: __dirname + '/karma.conf.js',
-        singleRun: false
+        singleRun: true
     }, done).start();
 });
+
+var webdriver = require('gulp-webdriver');
+gulp.task('e2e', ['www', 'selenium'], function () {
+    return gulp.src('wdio.conf.js')
+        .pipe(webdriver())
+        .on('error', function () {
+            seleniumServer.kill();
+            process.exit(1);
+        });
+});
+gulp.task('test:e2e', ['clean', 'webpack', 'e2e'], function () {
+    wwwServer.reset();
+    seleniumServer.kill();
+    process.exit(1);
+});
+
 
 var nodeMon = require('nodemon');
 gulp.task('www', function () {
@@ -46,7 +62,7 @@ gulp.task('webpack', function(callback) {
 
 var fs = require('fs-extra');
 gulp.task('clean', function (done) {
-    return fs.remove('public', done);
+    return fs.emptyDir('public', done);
 });
 
 var selenium = require('selenium-standalone');
@@ -63,18 +79,3 @@ gulp.task('selenium', function (done) {
     });
 });
 
-var webdriver = require('gulp-webdriver');
-gulp.task('e2e', ['www', 'selenium'], function () {
-    return gulp.src('wdio.conf.js')
-        .pipe(webdriver())
-        .on('error', function () {
-            seleniumServer.kill();
-            process.exit(1);
-        });
-});
-
-gulp.task('test:e2e', ['clean', 'webpack', 'e2e'], function () {
-    wwwServer.reset();
-    seleniumServer.kill();
-    process.exit(1);
-});
