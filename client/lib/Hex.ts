@@ -1,13 +1,42 @@
 'use strict';
 
-var Array2d = require('./Array2d');
-var _ = require('lodash');
+require('es6-shim');
+import Array2d = require('./Array2d');
+import _ = require('lodash');
+import IPoint = require('./IPoint');
+
 
 /**
  * Class that contains functions for working with a hex map.
  * @class Hex
  */
 class Hex {
+
+    /**
+     * The height of a hex in pixels
+     * @const
+     * @type {Number}
+     */
+    public static HEX_HEIGHT: number = 72;
+
+    /**
+     * The height of a hex in pixels
+     * @const
+     * @type {Number}
+     */
+    public static HEX_WIDTH: number = 72;
+
+    /**
+     * The length of one of the sides of a hex in pixels (all 6 sides should be equal).
+     * @const
+     * @type {Number}
+     */
+    public static HEX_SIDE: number = Hex.HEX_HEIGHT / 2;
+
+    constructor () {
+
+    };
+
     /**
      * Returns the X,Y coordinates of all valid adjacent hex.
      * @param {Number} x The x coordinate.
@@ -16,8 +45,8 @@ class Hex {
      * @param {Number} width The width of 2d array representing the hex.
      * @return {Array.<{x: number, y: number}>} array of {x, y} Objects representing adjacent coordinates.
      */
-    static getAdjacentCoords (x, y, height, width) {
-        var possible = null, n;
+    public static getAdjacentCoords (x: number, y: number, height: number, width: number): Array<IPoint> {
+        let possible: Array<IPoint> = undefined;
         if (x % 2) {
             possible = [
                 //{x:x+1, y:y-1},
@@ -43,9 +72,9 @@ class Hex {
                 //{x:x-1, y:y+1}
             ];
         }
-        var ret = [];
+        let ret: Array<IPoint> = [];
 
-        for (n = 0; n < possible.length; n++) {
+        for (let n: number = 0; n < possible.length; n++) {
             if (possible[n].x >= 0 && possible[n].x < width && possible[n].y >= 0 && possible[n].y < height) {
                 ret.push(possible[n]);
             }
@@ -68,12 +97,13 @@ class Hex {
      * @param {Number|undefined} [prevX] coordinate of the hex we're recursing from
      * @param {Number|undefined} [prevY] coordinate of the hex we're recursing from
      */
-    static walkAdjacent (x, y, maxDepth, callback, height, width, currentDepth, bitmap, prevX, prevY) {
+    public static walkAdjacent (x: number, y: number, maxDepth: number, callback: Function, height: number, width: number,
+                                currentDepth?: number, bitmap?: Array2d, prevX?: number, prevY?: number): void {
         currentDepth = currentDepth || 1;
         maxDepth = maxDepth || 1;
         prevX = _.isUndefined(prevX) ? -1 : prevX;
         prevY = _.isUndefined(prevY) ? -1 : prevY;
-        var n;
+        let n: number;
 
         if (!bitmap) {
             bitmap = new Array2d(height, width);
@@ -82,7 +112,7 @@ class Hex {
         if (currentDepth - 1 === maxDepth) {
             return;
         }
-        var coords = Hex.getAdjacentCoords(x, y, height, width);
+        let coords: Array<IPoint> = Hex.getAdjacentCoords(x, y, height, width);
 
         // Walk thru the adjacent squares and recurse into their neighbors
         for (n = 0; n < coords.length; n++) {
@@ -103,15 +133,15 @@ class Hex {
      * @param {Number} screenY The y coordinate in screen space.
      * @return {{x: Number, y: Number}} an {x,y} object of the coordinates containing screen point
      */
-    static convertScreenToMapCoords (screenX, screenY) {
+    public static convertScreenToMapCoords (screenX: number, screenY: number): IPoint {
         // ----------------------------------------------------------------------
         // --- Determine coordinate of map div as we want the click coordinate as
         // --- we want the mouse click relative to this div.
         // ----------------------------------------------------------------------
-        var posX = screenX;
-        var posY = screenY;
+        let posX = screenX;
+        let posY = screenY;
 
-        var x, y, z, ix, iy, iz, s, absDx, absDy, absDz;
+        let x, y, z, ix, iy, iz, s, absDx, absDy, absDz;
 
         // ----------------------------------------------------------------------
         // --- Convert mouse click to hex grid coordinate
@@ -153,7 +183,7 @@ class Hex {
      * @param {Number} mapY The y coordinate in map space.
      * @return {{x: Number, y: Number}} An {x,y} object of the coordinates containing screen point.
      */
-    static _calculateOffsetPosition (mapX, mapY) {
+    public static _calculateOffsetPosition (mapX: number, mapY: number): IPoint {
         return {
             x: (mapX * Hex.HEX_SIDE * 1.5),
             y: (mapY * Hex.HEX_HEIGHT + (mapX % 2) * Hex.HEX_HEIGHT / 2),
@@ -166,7 +196,7 @@ class Hex {
      * @param {Number} y The y coordinate.
      * @returns {{x: number, y: number}} An object representing the point.
      */
-    static convertArrayToScreenCoords (x, y) {
+    public static convertArrayToScreenCoords (x: number, y: number): IPoint {
         return {
             x: (x * Hex.HEX_SIDE * 1.5),
             y: (y * Hex.HEX_HEIGHT + (x % 2) * Hex.HEX_HEIGHT / 2),
@@ -179,7 +209,7 @@ class Hex {
      * @param {Number} y The y coordinate.
      * @returns {{x: number, y: number}} An object representing the point.
      */
-    static convertHexToArrayCoords (x, y) {
+    public static convertHexToArrayCoords (x: number, y: number): IPoint {
         return {
             x: x + y,
             y: Math.floor((x + y) / 2) - y,
@@ -192,7 +222,7 @@ class Hex {
      * @param {Number} y The y coordinate.
      * @returns {{x: number, y: number}} An object representing the point.
      */
-    static convertArrayToHexCoords (x, y) {
+    public static convertArrayToHexCoords (x: number, y: number): IPoint {
         return {
             x: y + Math.ceil(x / 2),
             y: -1 * (y - Math.floor(x / 2)),
@@ -206,12 +236,12 @@ class Hex {
      * @param {{x:number, y:number}} b The y coordinate.
      * @returns {number} The distance between the two points in hexes.
      */
-    static calculateDistanceHexSpace (a, b) {
-        var dx = b.x - a.x,
+    public static calculateDistanceHexSpace (a: IPoint, b: IPoint): number {
+        let dx = b.x - a.x,
             dy = b.y - a.y,
             ret;
 
-        if (Math.signum(dx) !== Math.signum(dy)) {
+        if (Math['sign'](dx) !== Math['sign'](dy)) {
             ret = Math.max(Math.abs(dx), Math.abs(dy));
         } else {
             ret = Math.abs(dx) + Math.abs(dy);
@@ -220,27 +250,4 @@ class Hex {
     }
 }
 
-/**
- * The height of a hex in pixels
- * @const
- * @type {Number}
- */
-Hex.HEX_HEIGHT = 72;
-
-/**
- * The height of a hex in pixels
- * @const
- * @type {Number}
- */
-Hex.HEX_WIDTH = 72;
-
-/**
- * The length of one of the sides of a hex in pixels (all 6 sides should be equal).
- * @const
- * @type {Number}
- */
-Hex.HEX_SIDE = Hex.HEX_HEIGHT / 2;
-
-
-
-module.exports = Hex;
+export = Hex;

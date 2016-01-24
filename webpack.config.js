@@ -10,6 +10,7 @@ module.exports = {
     ],
     entry: {
         index: './index.html',
+        app: './app.ts',
         //test: ['babel-polyfill', './test.js']
     },
     output: {
@@ -24,18 +25,10 @@ module.exports = {
     devtool: isProd ? '' : 'source-map',
     module: {
         loaders: [
+            { test: /\.ts$/, loader: 'ts-loader' },
             {
                 test: /\.html$/,
                 loader: 'file-loader?name=[path][name].[ext]',
-            },
-            {
-                test: /\.js$/,
-                loader: 'babel',
-                exclude: [/node_modules/],
-                query: {
-                    plugins: ['transform-runtime'],
-                    presets: ['es2015'],
-                },
             },
         ],
     },

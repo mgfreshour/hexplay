@@ -12,14 +12,17 @@ gulp.task('test:server', function () {
 
 var Karma = require('karma').Server;
 gulp.task('test:client', function (done) {
-    new Karma({
+    var runner = new Karma({
         configFile: __dirname + '/karma.conf.js',
         singleRun: !gutil.env.watch,
-    }, done).start();
+    }, function () {
+        done();
+    });
+    runner.start();
 });
 
 var webdriver = require('gulp-webdriver');
-gulp.task('e2e', ['www', 'selenium'], function () {
+gulp.task('inner:e2e', ['www', 'selenium'], function () {
     return gulp.src('wdio.conf.js')
         .pipe(webdriver())
         .on('error', function () {
@@ -27,10 +30,10 @@ gulp.task('e2e', ['www', 'selenium'], function () {
             process.exit(1);
         });
 });
-gulp.task('test:e2e', ['clean', 'webpack', 'e2e'], function () {
+gulp.task('test:e2e', ['clean', 'webpack', 'inner:e2e'], function (a, b, c) {
     wwwServer.reset();
     seleniumServer.kill();
-    process.exit(1);
+    process.exit(0);
 });
 
 var nodeMon = require('nodemon');
@@ -42,13 +45,20 @@ gulp.task('www', function () {
     });
 });
 
-var eslint = require('gulp-eslint');
-gulp.task('lint', function() {
-    return gulp.src(['**/*.js','!node_modules/**', '!public/**'])
-        .pipe(eslint())
-        .pipe(eslint.format())
-        .pipe(eslint.failAfterError());
-});
+var tslint = require('gulp-tslint');
+gulp.task('lint', () =>
+    gulp.src(['**/*.ts', '!**/*.spec.ts', '!node_modules/**', '!typings/**'])
+        .pipe(tslint())
+        .pipe(tslint.report('verbose'))
+);
+
+//var eslint = require('gulp-eslint');
+//gulp.task('lint', function() {
+//    return gulp.src(['**/*.js','!node_modules/**', '!public/**'])
+//        .pipe(eslint())
+//        .pipe(eslint.format())
+//        .pipe(eslint.failAfterError());
+//});
 
 var webpack = require('webpack');
 gulp.task('webpack', function(callback) {

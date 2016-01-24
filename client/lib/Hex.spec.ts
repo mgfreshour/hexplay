@@ -1,7 +1,7 @@
 'use strict';
 
-var Hex = require('./Hex');
-var Array2d = require('./Array2d');
+import Hex = require('./Hex');
+import Array2d = require('./Array2d');
 
 describe('utils.Hex', function () {
 
@@ -68,7 +68,7 @@ describe('utils.Hex', function () {
                 }
             };
             Hex.walkAdjacent(0, 0, maxDepth, callback, height, width);
-            expect(testValues.data).toEqual(expected);
+            expect(testValues.getInternalData()).toEqual(expected);
         });
     });
 

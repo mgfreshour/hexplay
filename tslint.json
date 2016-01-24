@@ -1,0 +1,178 @@
+{
+  "rulesDirectory": [ "node_modules/tslint-microsoft-contrib", "node_modules/tslint-eslint-rules/dist/rules" ],
+  "rules": {
+    "align": [
+      true,
+      "parameters",
+      "statements"
+    ],
+    "ban": false,
+    "class-name": true,
+    "comment-format": false,
+    "curly": true,
+    "eofline": true,
+    "forin": true,
+    "indent": [
+      true,
+      "spaces"
+    ],
+    "interface-name": true,
+    "jsdoc-format": true,
+    "label-position": true,
+    "label-undefined": true,
+    "max-line-length": [
+      true,
+      140
+    ],
+    "member-access": true,
+    "member-ordering": [
+      true,
+      "public-before-private",
+      "static-before-instance",
+      "variables-before-functions"
+    ],
+    "no-any": false,
+    "no-arg": true,
+    "no-bitwise": true,
+    "no-conditional-assignment": true,
+    "no-consecutive-blank-lines": false,
+    "no-console": [
+      true,
+      "debug",
+      "info",
+      "time",
+      "timeEnd",
+      "trace"
+    ],
+    "no-construct": true,
+    "no-constructor-vars": true,
+    "no-debugger": true,
+    "no-duplicate-key": true,
+    "no-duplicate-variable": true,
+    "no-empty": true,
+    "no-eval": true,
+    "no-inferrable-types": false,
+    "no-internal-module": false,
+    "no-null-keyword": true,
+    "no-require-imports": false,
+    "no-shadowed-variable": true,
+    "no-string-literal": false,
+    "no-switch-case-fall-through": true,
+    "no-trailing-whitespace": true,
+    "no-unreachable": true,
+    "no-unused-expression": true,
+    "no-unused-variable": true,
+    "no-use-before-declare": true,
+    "no-var-keyword": true,
+    "no-var-requires": false,
+    "object-literal-sort-keys": false,
+    "one-line": [
+      true,
+      "check-open-brace",
+      "check-catch",
+      "check-else",
+      "check-whitespace"
+    ],
+    "quotemark": [
+      true,
+      "single",
+      "avoid-escape"
+    ],
+    "radix": true,
+    "semicolon": true,
+    "switch-default": true,
+    "trailing-comma": [
+      true,
+      {
+        "multiline": "always",
+        "singleline": "never"
+      }
+    ],
+    "triple-equals": [
+      true,
+      "allow-null-check"
+    ],
+    "typedef": [
+      true,
+      "call-signature",
+      "parameter",
+      "property-declaration",
+      "member-variable-declaration"
+    ],
+    "typedef-whitespace": [
+      true,
+      {
+        "call-signature": "nospace",
+        "index-signature": "nospace",
+        "parameter": "nospace",
+        "property-declaration": "nospace",
+        "variable-declaration": "nospace"
+      }
+    ],
+    "use-strict": [
+      true,
+      "check-module",
+      "check-function"
+    ],
+    "variable-name": [
+      true,
+      "check-format",
+      "allow-leading-underscore",
+      "ban-keywords"
+    ],
+    "whitespace": [
+      true,
+      "check-branch",
+      "check-decl",
+      "check-operator",
+      "check-separator",
+      "check-type"
+    ],
+
+
+    "export-name": true,
+    "use-isnan": true,
+    "missing-optional-annotation": true,
+    "no-duplicate-parameter-names": true,
+    "no-duplicate-case": true,
+    "no-empty-interfaces": true,
+    "no-exec-script": true,
+    "no-function-constructor-with-string-args": true,
+    "no-for-in": true,
+    "no-invalid-regexp": true,
+    "no-unused-imports": true,
+    "no-with-statement": true,
+    "prefer-array-literal": true,
+    "promise-must-complete": true,
+    "valid-typeof": true,
+
+
+
+
+    "comma-dangle": [1, "always-multiline"],
+    "brace-style": [2, "1tbs"],
+    "func-style": 0,
+    "guard-for-in": 2,
+    "no-floating-decimal": 2,
+    "no-nested-ternary": 2,
+    "no-undefined": 2,
+    "space-after-keywords": [2, "always"],
+    "no-multi-spaces": 0,
+    "wrap-iife": 2,
+    "quotes": [1, "single"],
+    "strict": [1, "global"],
+    "new-cap": 2,
+    "camelcase": [2, { "properties": "never"}],
+    "valid-jsdoc": [2, {
+      "requireReturn": false,
+      "matchDescription": "^[A-Z][A-Za-z0-9\\s.!,]*[.]$"
+    }],
+    "require-jsdoc": [2, {
+      "require": {
+        "FunctionDeclaration": true,
+        "MethodDefinition": true,
+        "ClassDeclaration": true
+      }
+    }]
+  }
+}
