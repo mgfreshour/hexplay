@@ -28,7 +28,7 @@ class MapMask {
      * @property tiles
      * @type Array2d
      */
-    private tiles: Array2d;
+    private tiles: Array2d<Renderable>;
 
     private height: number;
     private width: number;
@@ -80,7 +80,7 @@ class MapMask {
      * Loop through each of the tiles.
      * @param {Function} callback Iterator function.
      */
-    public each (callback: Function): void {
+    public each (callback: (x: number, y: number, item: Renderable) => void): void {
         this.tiles.each(callback);
     }
 

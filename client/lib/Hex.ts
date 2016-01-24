@@ -94,7 +94,7 @@ class Hex {
      * @param {Number|undefined} [prevY] coordinate of the hex we're recursing from
      */
     public static walkAdjacent (x: number, y: number, maxDepth: number, callback: Function, height: number, width: number,
-                                currentDepth?: number, bitmap?: Array2d, prevX?: number, prevY?: number): void {
+                                currentDepth?: number, bitmap?: Array2d<number>, prevX?: number, prevY?: number): void {
         currentDepth = currentDepth || 1;
         maxDepth = maxDepth || 1;
         prevX = _.isUndefined(prevX) ? -1 : prevX;
@@ -102,7 +102,7 @@ class Hex {
         let n: number;
 
         if (!bitmap) {
-            bitmap = new Array2d(height, width);
+            bitmap = new Array2d<number>(height, width);
         }
 
         if (currentDepth - 1 === maxDepth) {
@@ -237,7 +237,7 @@ class Hex {
             dy = b.y - a.y,
             ret;
 
-        if (Math['sign'](dx) !== Math['sign'](dy)) {
+        if (Math.sign(dx) !== Math.sign(dy)) {
             ret = Math.max(Math.abs(dx), Math.abs(dy));
         } else {
             ret = Math.abs(dx) + Math.abs(dy);

@@ -1,5 +1,6 @@
-import Renderable = require('../renderer/Renderable');
 import Promise = require('bluebird');
+import Renderable = require('../renderer/Renderable');
+/// <reference path='../../typings/tsd.d.ts' />
 'use strict';
 
 /**
@@ -8,13 +9,20 @@ import Promise = require('bluebird');
  * @constructor
  */
 class TileType extends Renderable {
-    constructor () {
-        super();
+
+    constructor (options) {
+        super(options);
     }
 
-    public static load (): Promise<void> {
+    private static data: Map<string, TileType>;
+
+    public static load (data?: Map<string, TileType>): Promise<void> {
         return new Promise<void>(function (resolve, reject) {
-            resolve();
+            if (data) {
+                TileType.data = data;
+                return resolve();
+            }
+            reject(new Error('Not Implemented'));
         });
     }
 

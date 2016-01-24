@@ -1,5 +1,6 @@
 import Array2d = require('../lib/Array2d');
 import Unit = require('./Unit');
+import Tile = require('./Tile');
 'use strict';
 
 /**
@@ -10,16 +11,21 @@ import Unit = require('./Unit');
 class GameMap {
     public height: number;
     public width: number;
-    private id: number;
     private name: string;
     private availableTeams: [string];
-    private tileData: Array2d;
+    private tileData: Array2d<any>;
     private unitData: [any];
-    private tiles: Array2d;
+    private tiles: Array2d<Tile>;
 
 
     constructor (options) {
-
+        this.height = options.height;
+        this.width = options.width;
+        this.name = options.name;
+        this.availableTeams = options.availableTeams;
+        this.tileData = options.tileData;
+        this.unitData = options.unitData;
+        this.tiles = options.tiles;
     }
 
     /**
@@ -41,6 +47,21 @@ class GameMap {
         return data;
     }
 
+    /**
+     *
+     * @param {Number} x
+     * @param {Number} y
+     */
+    public removeUnitDataAt (x, y) {
+        let n, data;
+        for (n = 0; n < this.unitData.length; n++) {
+            data = this.unitData[n];
+            if (data.x === x && data.y === y) {
+                return this.unitData.splice(n, 1)[0];
+            }
+        }
+    }
+
 
     /**
      *
@@ -53,21 +74,6 @@ class GameMap {
             data = this.unitData[n];
             if (data.x === x && data.y === y) {
                 return data;
-            }
-        }
-    }
-
-    /**
-     *
-     * @param {Number} x
-     * @param {Number} y
-     */
-    public removeUnitDataAt (x, y) {
-        let n, data;
-        for (n = 0; n < this.unitData.length; n++) {
-            data = this.unitData[n];
-            if (data.x === x && data.y === y) {
-                return this.unitData.splice(n, 1)[0];
             }
         }
     }
@@ -98,17 +104,16 @@ class GameMap {
     public createMapTiles () {
         let tileData = this.tileData,
             height = this.height,
-            width = this.width,
-            tile;
+            width = this.width;
 
-        this.tiles = new Array2d(height, width);
+        this.tiles = new Array2d<Tile>(height, width);
         this.tiles.on('change', _.bind( function (x, y, tile, old) {
             this.trigger('tileChange', x, y, tile, old);
         }, this) );
 
         for (let y  = 0; y < height; y++) {
             for (let x = 0; x < width; x++) {
-                //tile = Tile.createTileForTypeIndex(tileData[y][x].type_index);
+                let tile = Tile.createTileForTypeIndex(tileData[y][x].type_index);
                 this.setTile(x, y, tile);
             }
         }

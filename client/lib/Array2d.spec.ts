@@ -1,7 +1,7 @@
 import Array2d = require('./Array2d');
 
 describe('utils.Array2d', function () {
-    var testee: Array2d = undefined;
+    let testee: Array2d<any> = undefined;
 
     beforeEach(function () {
         testee = new Array2d();
@@ -14,7 +14,7 @@ describe('utils.Array2d', function () {
         });
 
         it('should set height and width', function () {
-            var height = 6, width = 5;
+            let height = 6, width = 5;
             testee = new Array2d(height, width);
             expect(testee.getHeight()).toEqual(height);
             expect(testee.getWidth()).toEqual(width);
@@ -23,7 +23,7 @@ describe('utils.Array2d', function () {
 
     describe('#generate', function () {
         it('should create with passed sizes', function () {
-            var height = 6, width = 5, y;
+            let height = 6, width = 5, y;
             testee.generate(height, width);
             expect(testee.getInternalData().length).toEqual(height, 'Correct height');
             for (y = 0; y < testee.getInternalData().length; y++) {
@@ -32,7 +32,7 @@ describe('utils.Array2d', function () {
         });
 
         it('should fill with the passed data', function () {
-            var height = 6, width = 5, fill = 'hello', x, y;
+            let height = 6, width = 5, fill = 'hello', x, y;
             testee.generate(height, width, fill);
             for (y = 0; y < testee.getInternalData().length; y++) {
                 for (x = 0; x < testee.getInternalData()[0].length; x++) {
@@ -44,14 +44,14 @@ describe('utils.Array2d', function () {
 
     describe('#each', function () {
         it('iterates through correct number of items', function () {
-            var height = 6, width = 5, cnt = 0;
+            let height = 6, width = 5, cnt = 0;
             testee.generate(height, width);
             testee.each(() => cnt++);
             expect(cnt).toEqual(height * width);
         });
 
         it('passes correct value to callback', function () {
-            var height = 6, width = 5,
+            let height = 6, width = 5,
                 x, y;
             testee.generate(height, width);
             for (y = 0; y < testee.getInternalData().length; y++) {
@@ -65,12 +65,11 @@ describe('utils.Array2d', function () {
 
     describe('#map', function () {
         it('changes cells', function () {
-            var height = 6, width = 5,
-                x, y;
+            let height = 6, width = 5;
             testee.generate(height, width);
             testee.map((x, y) => x + ',' + y);
-            for (y = 0; y < testee.getInternalData().length; y++) {
-                for (x = 0; x < testee.getInternalData()[0].length; x++) {
+            for (let y = 0; y < testee.getInternalData().length; y++) {
+                for (let x = 0; x < testee.getInternalData()[0].length; x++) {
                     expect(testee.getInternalData()[y][x]).toEqual(x + ',' + y);
                 }
             }
@@ -79,9 +78,9 @@ describe('utils.Array2d', function () {
 
     describe('#setMulti', function () {
         it('works', function () {
-            var height = 5, width = 6, x, y;
-            var testee = new Array2d(height, width);
-            var coords = [{ x: 0, y: 0 }, { x: 1, y: 1 }, { x: 2, y: 2 } ];
+            let height = 5, width = 6, x, y;
+            let testee = new Array2d(height, width);
+            let coords = [{ x: 0, y: 0 }, { x: 1, y: 1 }, { x: 2, y: 2 } ];
             testee.setMulti(coords, 'hello');
             for (y = 0; y < testee.getInternalData().length; y++) {
                 for (x = 0; x < testee.getInternalData()[0].length; x++) {
@@ -97,7 +96,7 @@ describe('utils.Array2d', function () {
 
     describe('#set', function () {
         it('works', function () {
-            var height = 5, width = 6, x, y;
+            let height = 5, width = 6, x, y;
             testee = new Array2d(height, width);
             testee.set(0, 0, 'hello');
             testee.set(1, 1, 'hello');
@@ -114,7 +113,7 @@ describe('utils.Array2d', function () {
         });
 
         it('emits event on change', function (done) {
-            var height = 5, width = 6;
+            let height = 5, width = 6;
             testee = new Array2d(height, width);
             testee.addListener('change', function (x, y, value, old) {
                 expect([x, y, value, old]).toEqual([1, 2, 'hello', 0]);
@@ -127,7 +126,7 @@ describe('utils.Array2d', function () {
 
     describe('#get', function () {
         it('works', function () {
-            var height = 5, width = 6, x, y;
+            let height = 5, width = 6, x, y;
             testee = new Array2d(height, width);
             testee.getInternalData()[0][0] = 'hello';
             testee.getInternalData()[1][1] = 'hello';
@@ -146,9 +145,9 @@ describe('utils.Array2d', function () {
 
     describe('#toString', function () {
         it('works', function () {
-            var height = 3, width = 3;
+            let height = 3, width = 3;
             testee = new Array2d(height, width);
-            var expected = '[9][0][0]\n[0][9][0]\n[0][0][9]\n';
+            let expected = '[9][0][0]\n[0][9][0]\n[0][0][9]\n';
             testee.getInternalData()[0][0] = 9;
             testee.getInternalData()[1][1] = 9;
             testee.getInternalData()[2][2] = 9;

@@ -63,9 +63,9 @@ class MoveAction implements IUnitAction {
      * @returns {Array2d}
      * @private
      */
-    private _calculateActionMap (unit, game): Array2d {
+    private _calculateActionMap (unit, game): Array2d<string> {
         let map = game.getMap(),
-            actionMap = new Array2d(map.height, map.width, 'movable');
+            actionMap = new Array2d<string>(map.height, map.width, 'movable');
 
         actionMap.set(unit.get('x'), unit.get('y'), 'nothing');
 
