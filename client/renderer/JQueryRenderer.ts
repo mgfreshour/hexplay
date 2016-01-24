@@ -1,3 +1,4 @@
+/* tslint:disable */ // TODO fix this file, or delete it.
 'use strict';
 
 
@@ -7,7 +8,7 @@
  * @implements {IRenderer}
  * @param {jQuery} screen the main container to render to
  */
-var jQueryRenderer = function (screen) {
+let JQueryRenderer = function (screen) {
     this.screen = screen;
     this.layers = {};
 };
@@ -15,15 +16,15 @@ var jQueryRenderer = function (screen) {
 /**
  * @inheritDoc
  */
-jQueryRenderer.prototype.drawItemToLayer = function (layer_name, x, y, item) {
-    var layer = this._getLayer(layer_name);
+JQueryRenderer.prototype.drawItemToLayer = function (layerName, x, y, item) {
+    let layer = this._getLayer(layerName);
     this._drawItem(item, layer, x, y);
 };
 
 /**
  * @inheritDoc
  */
-jQueryRenderer.prototype.hideItem = function (item) {
+JQueryRenderer.prototype.hideItem = function (item) {
     if (item.gfxContainer) {
         item.gfxContainer.hide();
     }
@@ -32,7 +33,7 @@ jQueryRenderer.prototype.hideItem = function (item) {
 /**
  * @inheritDoc
  */
-jQueryRenderer.prototype.showItem = function (item) {
+JQueryRenderer.prototype.showItem = function (item) {
     if (item.gfxContainer) {
         item.gfxContainer.show();
     }
@@ -41,7 +42,7 @@ jQueryRenderer.prototype.showItem = function (item) {
 /**
  * @inheritDoc
  */
-jQueryRenderer.prototype.removeItem = function (item) {
+JQueryRenderer.prototype.removeItem = function (item) {
     if (item.gfxContainer) {
         item.gfxContainer.remove();
     }
@@ -50,24 +51,24 @@ jQueryRenderer.prototype.removeItem = function (item) {
 /**
  * @inheritDoc
  */
-jQueryRenderer.prototype.addLayer = function (layer_name) {
-    this.layers[layer_name] = $('<div id="rendering_layer_' + layer_name + '" class="rendering_layer"></div>');
-    this.screen.append(this.layers[layer_name]);
+JQueryRenderer.prototype.addLayer = function (layerName) {
+    this.layers[layerName] = $('<div id="rendering_layer_' + layerName + '" class="rendering_layer"></div>');
+    this.screen.append(this.layers[layerName]);
 };
 
 /**
  * @inheritDoc
  */
-jQueryRenderer.prototype.clearLayer = function (layer_name) {
-    if (this.layers[layer_name] !== undefined) {
-        this.layers[layer_name].html('');
+JQueryRenderer.prototype.clearLayer = function (layerName) {
+    if (this.layers[layerName] !== undefined) {
+        this.layers[layerName].html('');
     }
 };
 
 /**
  * @inheritDoc
  */
-jQueryRenderer.prototype.clearScreen = function (layer_name) {
+JQueryRenderer.prototype.clearScreen = function (layerName) {
     $.each(this.layers, function (key) {
         this.clearLayer(key);
     }.bind(this));
@@ -76,7 +77,7 @@ jQueryRenderer.prototype.clearScreen = function (layer_name) {
 /**
  * @inheritDoc
  */
-jQueryRenderer.prototype.fadeOutAndRemove = function (item, duration, delay) {
+JQueryRenderer.prototype.fadeOutAndRemove = function (item, duration, delay) {
     delay = delay !== undefined ? delay : 0;
     duration = duration !== undefined ? duration : 500;
     if (item.gfxContainer) {
@@ -89,15 +90,15 @@ jQueryRenderer.prototype.fadeOutAndRemove = function (item, duration, delay) {
 /**
  * Gets or creates a layer of name
  * @private
- * @param {String} layer_name
+ * @param {String} layerName
  * @return {jQuery}
  */
-jQueryRenderer.prototype._getLayer = function (layer_name) {
-    if (this.layers[layer_name] === undefined) {
-        this.addLayer(layer_name);
+JQueryRenderer.prototype._getLayer = function (layerName) {
+    if (this.layers[layerName] === undefined) {
+        this.addLayer(layerName);
     }
 
-    return this.layers[layer_name];
+    return this.layers[layerName];
 };
 
 /**
@@ -105,18 +106,18 @@ jQueryRenderer.prototype._getLayer = function (layer_name) {
  * @private
  * @param {Renderable} item
  * @param {jQuery} container the jquery item to draw into
- * @param {Number} screen_x
- * @param {Number} screen_y
- * @param {Boolean} [force_redraw]
+ * @param {Number} screenX
+ * @param {Number} screenY
+ * @param {Boolean} [forceRedraw]
  */
-jQueryRenderer.prototype._drawItem = function (item, container, screen_x, screen_y, force_redraw) {
-    if (item.gfxContainer && !force_redraw) {
-        item.gfxContainer.animate({left: screen_x, top: screen_y}, 100);
+JQueryRenderer.prototype._drawItem = function (item, container, screenX, screenY, forceRedraw?) {
+    if (item.gfxContainer && !forceRedraw) {
+        item.gfxContainer.animate({left: screenX, top: screenY}, 100);
     } else {
         // --- Style values to position hex image in the right location
-        var pos_style = 'left:' + Math.round(screen_x) + 'px; top:' + Math.round(screen_y) + 'px;',
+        let posStyle = 'left:' + Math.round(screenX) + 'px; top:' + Math.round(screenY) + 'px;',
             n = 0,
-            css_class = item.get('gfxCssClass'),
+            cssClass = item.get('gfxCssClass'),
             img = item.get('img'),
             text = item.get('text');
 
@@ -124,7 +125,7 @@ jQueryRenderer.prototype._drawItem = function (item, container, screen_x, screen
         if (img || text) {
 
             // Create the graphic container
-            item.gfxContainer = $('<div style="' + pos_style + '" class="' + css_class + '"></div>');
+            item.gfxContainer = $('<div style="' + posStyle + '" class="' + cssClass + '"></div>');
 
 
             // Draw the images
@@ -159,20 +160,20 @@ jQueryRenderer.prototype._drawItem = function (item, container, screen_x, screen
 /**
  * Draws an image to the screen as a BG image on a div
  * @private
- * @param {String} img_src
+ * @param {String} imgSrc
  * @param {jQuery} container where to add elements
- * @param {Number} [img_x] the position in the background image to start drawing from
- * @param {Number} [img_y] the position in the background image to start drawing from
+ * @param {Number} [imgX] the position in the background image to start drawing from
+ * @param {Number} [imgY] the position in the background image to start drawing from
  * @return {jQuery} the jquery element that now represents the image
  */
-jQueryRenderer.prototype._createImageSprite = function (img_src, container, img_x, img_y) {
-    var bg_pos = '';
+JQueryRenderer.prototype._createImageSprite = function (imgSrc, container, imgX?, imgY?) {
+    let bgPos = '';
 
-    if (img_x !== undefined && img_y !== undefined) {
-        bg_pos = img_x + 'px ' + img_y * -1 + 'px';
+    if (imgX !== undefined && imgY !== undefined) {
+        bgPos = imgX + 'px ' + imgY * -1 + 'px';
     }
-    var img = $('<div alt="" class="img" style="background: url(' + img_src + ') ' +
-        bg_pos + ' no-repeat;"></div>');
+    let img = $('<div alt="" class="img" style="background: url(' + imgSrc + ') ' +
+        bgPos + ' no-repeat;"></div>');
     container.append(img);
     return img;
 };
@@ -187,8 +188,8 @@ jQueryRenderer.prototype._createImageSprite = function (img_src, container, img_
  * @param {String} css_class the CSS class to apply to element
  * @return {jQuery} the jquery element that now represents the image
  */
-jQueryRenderer.prototype._drawText = function (text, container, css_class) {
-    var div = $('<div class="' + css_class + '">' + text + '</div>');
+JQueryRenderer.prototype._drawText = function (text, container, css_class) {
+    let div = $('<div class="' + css_class + '">' + text + '</div>');
     container.append(div);
     return div;
 };
@@ -203,15 +204,15 @@ jQueryRenderer.prototype._drawText = function (text, container, css_class) {
  * @return {jQuery} the jquery element that now represents the image
  */
 //    jQueryRenderer.prototype._drawImg = function (img_src, container, screen_x, screen_y) {
-//        var pos_style = '',
+//        let pos_style = '',
 //            bg_pos = '';
 //        if (screen_x !== undefined && screen_y !== undefined) {
 //            pos_style = 'left:' + Math.round(screen_x) + 'px; top:' + Math.round(screen_y) + 'px;';
 //        }
-//        var img = $('<img src="' + img_src + '" alt="" class="img" style="' + pos_style + '" />');
-//        //var images = $('<images src="'+img_src+'" alt="" style="'+pos_style+'" />');
+//        let img = $('<img src="' + img_src + '" alt="" class="img" style="' + pos_style + '" />');
+//        //let images = $('<images src="'+img_src+'" alt="" style="'+pos_style+'" />');
 //        container.append(img);
 //        return img;
 //    };
 
-module.exports = jQueryRenderer;
+export = JQueryRenderer;
