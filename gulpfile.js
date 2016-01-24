@@ -20,6 +20,7 @@ gulp.task('test:client', function (done) {
         singleRun: !gutil.env.watch,
     }, function () {
         done();
+        gutil.env.single && process.exit(0); // stupid work-around for https://github.com/karma-runner/karma/issues/1788
     });
     runner.start();
 });

@@ -7,8 +7,8 @@ describe('utils.Hex', function () {
 
     describe('::getAdjacentCoords', function () {
         it('works from the middle', function () {
-            var height = 4, width = 4, actual;
-            var expected = [
+            let height = 4, width = 4, actual;
+            let expected = [
                 {x: 2, y: 1},
                 {x: 2, y: 2},
                 {x: 1, y: 0},
@@ -23,8 +23,8 @@ describe('utils.Hex', function () {
         });
 
         it('works from the edge', function () {
-            var height = 4, width = 4, actual;
-            var expected = [
+            let height = 4, width = 4, actual;
+            let expected = [
                 {x: 2, y: 0},
                 {x: 2, y: 1},
                 {x: 1, y: 0},
@@ -38,8 +38,8 @@ describe('utils.Hex', function () {
         });
 
         it('works from the corner', function () {
-            var height = 4, width = 4, actual;
-            var expected = [
+            let height = 4, width = 4, actual;
+            let expected = [
                 {x: 1, y: 0},
                 {x: 0, y: 0},
                 {x: 0, y: 1},
@@ -52,17 +52,17 @@ describe('utils.Hex', function () {
 
     describe('::walkAdjacent', function () {
         it('works from corner', function () {
-            var height = 5, width = 5;
-            var expected = [
+            let height = 5, width = 5;
+            let expected = [
                 [1, 1, 2, 3, 4],
                 [1, 2, 2, 3, 4],
                 [2, 3, 3, 4, 4],
                 [3, 4, 4, 5, 5],
                 [4, 5, 5, 6, 6],
             ];
-            var testValues = new Array2d(height, width, 'h');
-            var maxDepth = 6;
-            var callback = function (x, y, currentDepth) {
+            let testValues = new Array2d(height, width, 'h');
+            let maxDepth = 6;
+            let callback = function (x, y, currentDepth) {
                 if (testValues.get(x, y) === 'h' || testValues.get(x, y) > currentDepth) {
                     testValues.set(x, y, currentDepth);
                 }

@@ -21,7 +21,7 @@ module.exports = {
         root: path.join(__dirname, 'scripts'),
         extensions: ['', '.ts', '.js', '.json'],
     },
-    devtool: isProd ? '' : 'source-map',
+    devtool: isProd ? '' : 'inline-source-map',
     module: {
         loaders: [
             { test: /\.ts$/, loader: 'ts-loader' },

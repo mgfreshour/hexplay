@@ -64,13 +64,14 @@ class MoveAction implements IUnitAction {
      * @private
      */
     private _calculateActionMap (unit, game): Array2d<string> {
-        let map = game.getMap(),
+        let map = game.map,
             actionMap = new Array2d<string>(map.height, map.width, 'movable');
 
-        actionMap.set(unit.get('x'), unit.get('y'), 'nothing');
+        actionMap.set(unit.x, unit.y, 'nothing');
 
         game.forEachUnit(function (otherUnit, x, y) {
-            if (unit.get('team') !== otherUnit.get('team')) {
+            console.error(otherUnit);
+            if (unit.team !== otherUnit.team) {
                 actionMap.set(x, y, 'attack');
             } else {
                 actionMap.set(x, y, 'invalid');

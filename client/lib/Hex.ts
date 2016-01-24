@@ -102,7 +102,7 @@ class Hex {
         let n: number;
 
         if (!bitmap) {
-            bitmap = new Array2d<number>(height, width);
+            bitmap = new Array2d<number>(height, width, 0);
         }
 
         if (currentDepth - 1 === maxDepth) {

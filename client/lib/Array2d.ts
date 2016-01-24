@@ -43,9 +43,6 @@ class Array2d<T> extends events.EventEmitter {
             for (sx = 0; sx < width; sx++) {
                 if (typeof cloneFn === 'function') {
                     row.push(cloneFn(value));
-                }
-                if (typeof value === 'object') {
-                    throw new Error('No clone function on object, and none passed in.');
                 } else { // primitive.. hopefully  :)
                     row.push(value);
                 }
@@ -84,14 +81,16 @@ class Array2d<T> extends events.EventEmitter {
     /**
      * Iterates through each value in the array and passes it to callback function, then sets the value to what the callback returned.
      * @param {Function} callback Receives x, y, and the value at that location, returns value that should replace it.
+     * @returns {Array2d<R>} Array2d with the same size but the values returned by the callback.
      */
-    public map (callback: (x: number, y: number, item: T) => T): void {
-        let x: number, y: number;
-        for (y = 0; y < this.height; y++) {
-            for (x = 0; x < this.width; x++) {
-                this.data[y][x] = callback(x, y, this.data[y][x]);
+    public map<R> (callback: (x: number, y: number, item: T) => R): Array2d<R> {
+        let ret = new Array2d<R>(this.height, this.width);
+        for (let y = 0; y < this.height; y++) {
+            for (let x = 0; x < this.width; x++) {
+                ret.data[y][x] = callback(x, y, this.data[y][x]);
             }
         }
+        return ret;
     }
 
     /**
@@ -118,9 +117,6 @@ class Array2d<T> extends events.EventEmitter {
         let old: any = this.get(x, y);
         if (typeof cloneFn === 'function') {
             this.data[y][x] = cloneFn(value);
-        }
-        if (typeof value === 'object') {
-            throw new Error('No clone function on object, and none passed in.');
         } else { // primitive.. hopefully  :)
             this.data[y][x] = value;
         }
@@ -135,7 +131,7 @@ class Array2d<T> extends events.EventEmitter {
      * @param {number} y The y coordinate.
      * @returns {*} The value at those coordinates.
      */
-    public get (x: number, y: number): any {
+    public get (x: number, y: number): T {
         return this.data[y][x];
     }
 

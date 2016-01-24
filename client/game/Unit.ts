@@ -10,10 +10,16 @@ import Sprite = require('../renderer/Sprite');
  * @constructor
  */
 class Unit extends Sprite {
-    private type: UnitType;
-    private health: number;
-    private team: number;
-    private acted: boolean;
+    private _type: UnitType;
+    private _health: number;
+    private _team: number;
+    private _acted: boolean;
+
+
+    get type () { return this._type; }
+    get health () { return this._health; }
+    get team () { return this._team; }
+    get acted () { return this._acted; }
 
     /**
      * Constructor.
@@ -21,10 +27,10 @@ class Unit extends Sprite {
      */
     constructor (options: any) {
         super(options);
-        this.type = options.type;
-        this.health = options.health;
-        this.team = options.team;
-        this.acted = options.acted;
+        this._type = options.type;
+        this._health = options.health;
+        this._team = options.team;
+        this._acted = options.acted;
     }
 
     /**

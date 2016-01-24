@@ -9,8 +9,11 @@ import Renderable = require('./Renderable');
  * @extends Renderable
  */
 class Sprite extends Renderable {
-    private x: number;
-    private y: number;
+    private _x: number;
+    private _y: number;
+
+    get x () { return this._x; }
+    get y () { return this._y; }
 
     /**
      * Constructor.
@@ -18,8 +21,8 @@ class Sprite extends Renderable {
      */
     constructor (options) {
         super(options);
-        this.x = options.x || 0;
-        this.y = options.y || 0;
+        this._x = options.x || 0;
+        this._y = options.y || 0;
     }
 
     /**
@@ -28,8 +31,8 @@ class Sprite extends Renderable {
      * @param {Number} y World space position to move to.
      */
     public move (x, y) {
-        this.x = x;
-        this.y = y;
+        this._x = x;
+        this._y = y;
         this.emit('move', this, x, y);
     }
 
