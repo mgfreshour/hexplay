@@ -47,7 +47,7 @@ gulp.task('inner:e2e', ['www', 'inner:selenium'], function () {
             process.exit(1);
         });
 });
-gulp.task('test:e2e', ['clean', 'webpack', 'inner:e2e'], function (a, b, c) {
+gulp.task('test:e2e', ['compile:client', 'inner:e2e'], function () {
     wwwServer.reset();
     seleniumServer.kill();
     process.exit(0);
