@@ -9,23 +9,23 @@ import Renderable = require('./Renderable');
  * @extends Renderable
  */
 class Sprite extends Renderable {
-    /**
-     *
-     */
-    private x: number = 0;
-    private y: number = 0;
+    private x: number;
+    private y: number;
 
     /**
      * Constructor.
+     * @param {any} options Object of properties to set.
      */
-    constructor () {
-        super();
+    constructor (options) {
+        super(options);
+        this.x = options.x || 0;
+        this.y = options.y || 0;
     }
 
     /**
      * Moves a sprite to x,y in world space.  NOTE: this doesn't check world space bounds.
-     * @param {Number} x
-     * @param {Number} y
+     * @param {Number} x World space position to move to.
+     * @param {Number} y World space position to move to.
      */
     public move (x, y) {
         this.x = x;

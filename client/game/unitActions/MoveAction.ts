@@ -1,21 +1,23 @@
 'use strict';
 
-import IAction = require('./IAction');
+import IUnitAction = require('./IUnitAction');
 import Array2d = require('../../lib/Array2d');
 import MapMask = require('../../lib/MapMask');
+import Unit = require('../Unit');
+import Game = require('../Game');
 
 /**
  * Defines the unit action to move.
- * @class Move
- * @implements IAction
+ * @class MoveAction
+ * @implements IUnitAction
  */
-class Move implements IAction {
+class MoveAction implements IUnitAction {
 
     /* tslint:disable:valid-jsdoc */
     /**
      * @inheritDoc
      */
-    public updateMask (game, unit, mask): MapMask {
+    public updateMask (game: Game, unit: Unit, mask: MapMask): MapMask {
         if (unit) {
             let actionMap = this._calculateActionMap(unit, game);
 
@@ -57,13 +59,13 @@ class Move implements IAction {
     /**
      * @method _calculateActionMap
      * @param {Unit} unit
-     * @param {Game} game
+     * @param {GameMap} game
      * @returns {Array2d}
      * @private
      */
     private _calculateActionMap (unit, game): Array2d {
-        let map = game.get('map'),
-            actionMap = new Array2d(map.get('height'), map.get('width'), 'movable');
+        let map = game.getMap(),
+            actionMap = new Array2d(map.height, map.width, 'movable');
 
         actionMap.set(unit.get('x'), unit.get('y'), 'nothing');
 
@@ -79,4 +81,4 @@ class Move implements IAction {
     };
 }
 
-export = Move;
+export = MoveAction;

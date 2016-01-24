@@ -11,15 +11,17 @@ class Renderable extends events.EventEmitter {
     /**
      * The container drawn on screen.
      */
-    private gfxContainer: createjs.Container;
+    protected gfxContainer: createjs.Container;
     /**
      * Text to draw.
      */
-    private text: any;
+    public text: any;
     /**
      * Image to draw.
      */
-    private img: any;
+    public img: any;
+    public imgX: number;
+    public imgY: number;
 
     /**
      * Constructor.
@@ -27,9 +29,11 @@ class Renderable extends events.EventEmitter {
      */
     constructor (options?: any) {
         super();
-        this.img = options.img || undefined;
-        this.text = options.text || undefined;
-        this.gfxContainer = options.gfxContainer || undefined;
+        this.img = options.img;
+        this.imgX = options.imgX;
+        this.imgY = options.imgY;
+        this.text = options.text;
+        this.gfxContainer = options.gfxContainer;
     }
 }
 

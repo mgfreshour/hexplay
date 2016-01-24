@@ -35,13 +35,16 @@ class MapMask {
     private fillType: MapMask.MaskType;
 
     /**
-     * Constructs the Map.
+     * Constructs the GameMap.
      * @constructor
+     * @param {number} height Dimension of map.
+     * @param {number} width Dimension of map.
+     * @param {MapMask.MaskType} fillType Type to initially fill map with.
      */
-    constructor (height: number, width: number, fillType: MapMask.MaskType) {
+    constructor (height: number, width: number, fillType: MapMask.MaskType = MapMask.MaskType.MASK_CLEAR) {
         this.height = height;
         this.width = width;
-        this.fillType = fillType || 0;
+        this.fillType = fillType;
         this.tiles = new Array2d(this.height, this.width, this._getTile(this.fillType));
     }
 
@@ -53,6 +56,16 @@ class MapMask {
      */
     public setTile (x: number, y: number, value: MapMask.MaskType): void {
         this.tiles.set(x, y, this._getTile(value));
+    }
+
+    /**
+     * Gets the tile at a position.
+     * @param {Number} x Position coordinate.
+     * @param {Number} y Position coordinate.
+     * @returns {MapMask.MaskType} The type of tile.
+     */
+    public getTile (x: number, y: number): MapMask.MaskType {
+        return this.tiles.get(x, y);
     }
 
     /**
