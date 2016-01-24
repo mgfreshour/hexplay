@@ -2,5 +2,5 @@ public
 *.iml
 .idea
 node_modules
-ts-compiled
+build
 typings

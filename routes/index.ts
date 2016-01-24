@@ -1,6 +1,6 @@
 'use strict';
 
-var glob = require('glob');
+import glob = require('glob');
 
 module.exports = function (server) {
     glob('**/*.js', {

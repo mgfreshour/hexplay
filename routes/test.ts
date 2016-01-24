@@ -1,5 +1,5 @@
 'use strict';
-module.exports = function(server) {
+export = function(server) {
 
     // Sample route
     server.get('/test', function (req, res, next) {

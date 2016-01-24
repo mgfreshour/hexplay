@@ -10,8 +10,7 @@ module.exports = {
     ],
     entry: {
         index: './index.html',
-        app: './app.ts',
-        //test: ['babel-polyfill', './test.js']
+        //app: './app.ts',
     },
     output: {
         path: path.join(__dirname, 'public'),
@@ -20,7 +19,7 @@ module.exports = {
     },
     resolve: {
         root: path.join(__dirname, 'scripts'),
-        extensions: ['', '.js', '.json'],
+        extensions: ['', '.ts', '.js', '.json'],
     },
     devtool: isProd ? '' : 'source-map',
     module: {

@@ -3,7 +3,7 @@
     "module": "commonjs",
     "target": "es5",
     "sourceMap": true,
-    "outDir": "./ts-compiled"
+    "outDir": "./build"
   },
   "exclude": [
     "node_modules"

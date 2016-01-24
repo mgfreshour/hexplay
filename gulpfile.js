@@ -1,12 +1,15 @@
 'use strict';
 var gulp = require('gulp');
 var gutil = require('gulp-util');
+var merge = require('merge2');
 
 var wwwServer, seleniumServer;
 
+// TESTING --------------------------------------------------
+
 var jasmine = require('gulp-jasmine');
-gulp.task('test:server', function () {
-    return gulp.src(['routes/**/*.spec.js'])
+gulp.task('test:server', ['compile:server'], function () {
+    return gulp.src(['build/routes/**/*.spec.js'])
         .pipe(jasmine()); // gulp-jasmine works on file-paths so you can't have any plugins before it
 });
 
@@ -21,8 +24,22 @@ gulp.task('test:client', function (done) {
     runner.start();
 });
 
+
+var selenium = require('selenium-standalone');
+gulp.task('inner:selenium', function (done) {
+    selenium.install({logger: console.log}, function () {
+        console.log('Launching Selenium at localhost:4444/wd/hub');
+        selenium.start(function (err, child) {
+            if (err) {
+                return done(err);
+            }
+            seleniumServer = child;
+            done();
+        });
+    });
+});
 var webdriver = require('gulp-webdriver');
-gulp.task('inner:e2e', ['www', 'selenium'], function () {
+gulp.task('inner:e2e', ['www', 'inner:selenium'], function () {
     return gulp.src('wdio.conf.js')
         .pipe(webdriver())
         .on('error', function () {
@@ -36,6 +53,43 @@ gulp.task('test:e2e', ['clean', 'webpack', 'inner:e2e'], function (a, b, c) {
     process.exit(0);
 });
 
+// COMPILING --------------------------------------------------
+
+var ts = require('gulp-typescript');
+var tsProject = ts.createProject('tsconfig.json');
+gulp.task('compile:server', function () {
+    var tsResult = gulp.src(['**/*.ts', '!**/*.spec.ts', '!node_modules/**'])
+        .pipe(ts(tsProject));
+
+    return merge([ // Merge the two output streams, so this task is finished when the IO of both operations are done.
+        tsResult.dts.pipe(gulp.dest('build/definitions')),
+        tsResult.js.pipe(gulp.dest('build'))
+    ]);
+});
+
+var webpack = require('webpack');
+gulp.task('compile:client', function(callback) {
+    webpack(require('./webpack.config.js'), function(err, stats) {
+        if (err) throw new gutil.PluginError('webpack', err);
+        gutil.log('[webpack]', stats.toString());
+        callback();
+    });
+});
+
+gulp.task('compile', ['compile:client', 'compile:server']);
+
+
+// LINTING --------------------------------------------------
+
+var tslint = require('gulp-tslint');
+gulp.task('lint', () =>
+    gulp.src(['**/*.ts', '!**/*.spec.ts', '!node_modules/**', '!typings/**'])
+        .pipe(tslint())
+        .pipe(tslint.report('verbose'))
+);
+
+// RUNNING --------------------------------------------------
+
 var nodeMon = require('nodemon');
 gulp.task('www', function () {
     wwwServer = nodeMon({
@@ -45,46 +99,20 @@ gulp.task('www', function () {
     });
 });
 
-var tslint = require('gulp-tslint');
-gulp.task('lint', () =>
-    gulp.src(['**/*.ts', '!**/*.spec.ts', '!node_modules/**', '!typings/**'])
-        .pipe(tslint())
-        .pipe(tslint.report('verbose'))
-);
-
-//var eslint = require('gulp-eslint');
-//gulp.task('lint', function() {
-//    return gulp.src(['**/*.js','!node_modules/**', '!public/**'])
-//        .pipe(eslint())
-//        .pipe(eslint.format())
-//        .pipe(eslint.failAfterError());
-//});
-
-var webpack = require('webpack');
-gulp.task('webpack', function(callback) {
-    webpack(require('./webpack.config.js'), function(err, stats) {
-        if (err) throw new gutil.PluginError('webpack', err);
-        gutil.log('[webpack]', stats.toString());
-        callback();
-    });
+gulp.task('watch', ['compile', 'www'], function() {
+    gulp.watch('**/*.ts', ['compile']);
 });
+
+
+// CLEANING --------------------------------------------------
 
 var fs = require('fs-extra');
-gulp.task('clean', function (done) {
+gulp.task('clean:public', function (done) {
     return fs.emptyDir('public', done);
 });
-
-var selenium = require('selenium-standalone');
-gulp.task('selenium', function (done) {
-    selenium.install({logger: console.log}, function () {
-        console.log('Launching Selenium at localhost:4444/wd/hub');
-        selenium.start(function (err, child) {
-            if (err) {
-                return done(err);
-            }
-            seleniumServer = child;
-            done();
-        });
-    });
+gulp.task('clean:build', function (done) {
+    return fs.emptyDir('build', done);
 });
+gulp.task('clean', ['clean:public', 'clean:build']);
+
 
