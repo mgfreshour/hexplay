@@ -1,12 +1,13 @@
 'use strict';
 
+import events = require('events');
 /// <reference path='../../typings/tsd.d.ts' />
 
 /**
  * @class Renderable
  * @constructor
  */
-class Renderable {
+class Renderable extends events.EventEmitter {
     /**
      * The container drawn on screen.
      */
@@ -24,7 +25,8 @@ class Renderable {
      * Constructor.
      * @param {any} options Creation options.
      */
-    constructor (options: any) {
+    constructor (options?: any) {
+        super();
         this.img = options.img || undefined;
         this.text = options.text || undefined;
         this.gfxContainer = options.gfxContainer || undefined;
