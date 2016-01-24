@@ -6,9 +6,7 @@ import Renderable = require('../renderer/Renderable');
 
 
 let availableTiles = {
-    0: new Renderable({
-        maskType: 0,
-    }),
+    0: new Renderable({ maskType: 0 }),
     1: new Renderable({
         maskType: 1,
         img: { src: '/images/misc/mask.png', height: Hex.HEX_HEIGHT, width: Hex.HEX_WIDTH },

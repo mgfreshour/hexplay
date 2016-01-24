@@ -15,6 +15,9 @@ class Renderable {
      * Constructor.
      */
     constructor (options: Object) {
+        this.img = options.img || undefined;
+        this.text = options.text || undefined;
+        this.gfxContainer = options.gfxContainer || undefined;
     }
 }
 

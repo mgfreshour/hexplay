@@ -33,10 +33,6 @@ class Hex {
      */
     public static HEX_SIDE: number = Hex.HEX_HEIGHT / 2;
 
-    constructor () {
-
-    };
-
     /**
      * Returns the X,Y coordinates of all valid adjacent hex.
      * @param {Number} x The x coordinate.

@@ -5,28 +5,25 @@
  * @class IRenderer
  * @interface
  */
-class IRenderer {
+interface IRenderer {
 
     /**
      * Adds a drawing layer to the screen.
      * @param {String} layerName  Name of layer to add.
      */
-    addLayer (layerName) {
-    }
+    addLayer (layerName);
 
     /**
      * Removes all Renderable Items from a drawing layer.
      * @param {String} layerName  Name of layer to clear.
      */
-    clearLayer (layerName) {
-    }
+    clearLayer (layerName);
 
     /**
      * Removes all Renderable Items from the screen.
      * @param {String} layerName Name of layer to clear.
      */
-    clearScreen (layerName) {
-    }
+    clearScreen (layerName);
 
     /**
      * Draws a Renderable Item to a layer.
@@ -35,8 +32,7 @@ class IRenderer {
      * @param {Number} y Screen position to move to.
      * @param {Renderable} item Item to add to layer.
      */
-    drawItemToLayer (layerName, x, y, item) {
-    }
+    drawItemToLayer (layerName, x, y, item);
 
 
     /**
@@ -45,29 +41,25 @@ class IRenderer {
      * @param {Number} y Screen position to move to.
      * @param {Renderable} item Item to move.
      */
-    moveItem (x, y, item) {
-    }
+    moveItem (x, y, item);
 
     /**
      * Hides a Renderable Item without destroying it.
      * @param {Renderable} item Item to hide.
      */
-    hideItem (item) {
-	}
+    hideItem (item);
 
     /**
      * Shows a hidden Renderable Item.
      * @param {Renderable} item Item to show.
      */
-    showItem (item) {
-	}
+    showItem (item);
 
     /**
      * Removes a Renderable Item from the screen.
      * @param {Renderable} item Item to remove.
      */
-    removeItem (item) {
-	}
+    removeItem (item);
 
     /**
      * Removes a Renderable Item from the screen after fading it out.
@@ -75,8 +67,7 @@ class IRenderer {
      * @param {Number} [duration] Milliseconds to take to fade out. Defaults to 500.
      * @param {Number} [delay] Milliseconds to wait before starting fade.  Defaults to 0.
      */
-    fadeOutAndRemove (item, duration, delay) {
-	}
+    fadeOutAndRemove (item, duration, delay);
 }
 
 export = IRenderer;

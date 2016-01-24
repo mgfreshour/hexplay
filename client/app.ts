@@ -8,3 +8,4 @@ import Array2d = require('./lib/Array2d');
 //import Renderable = require('./renderer/Renderable');
 
 let test = new Array2d();
+test = undefined;
