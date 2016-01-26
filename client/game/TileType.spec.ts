@@ -1,7 +1,7 @@
 
 import TileType = require('./TileType');
 
-describe('TileType', function () {
+describe('UnitType', function () {
     describe('::load', function () {
         it('adds passed types to internal structure', function () {
             let data = [
@@ -10,7 +10,6 @@ describe('TileType', function () {
             ];
             return TileType.load(data)
                 .then(function () {
-                    console.log(TileType.getType);
                     expect(TileType.getType('test_tile1').name).toEqual('test_tile1');
                     expect(TileType.getType('test_tile2').name).toEqual('test_tile2');
                 });

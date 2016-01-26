@@ -1,6 +1,6 @@
-import TileType = require('./TileType');
 'use strict';
 
+import TileType = require('./TileType');
 import GameMap = require('./GameMap');
 let map1Data = require('../../test_data/map1.json');
 let tileTypesData = require('../../test_data/tile_types.json');

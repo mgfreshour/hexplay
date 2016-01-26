@@ -6,7 +6,7 @@ import _ = require('lodash');
 
 /**
  * Represents the map tile type, contains the initial properties.
- * @class TileType
+ * @class UnitType
  * @constructor
  */
 class TileType extends Renderable {
