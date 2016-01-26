@@ -9,9 +9,9 @@ describe('Game', function () {
         testee = new Game({});
 
         // create simple mock tile data.
-        let tileData = new Map<string, TileType>();
-        tileData.set('only', new TileType({}));
-        TileType.load(tileData);
+        //let tileData = new Map<string, TileType>();
+        //tileData.set('only', new TileType({}));
+        //TileType.load(tileData);
 
 
     });

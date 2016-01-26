@@ -1,0 +1,253 @@
+
+{
+  "id": 1,
+  "height": 6,
+  "name": "Test Map 001",
+  "width": 7,
+  "unit_data": [
+    {
+      "x": 5,
+      "y": 1,
+      "type": 1,
+      "team": "red",
+      "_id": {
+        "$oid": "55870cf041c6d904e1a20df3"
+      }
+    },
+    {
+      "x": 4,
+      "y": 2,
+      "type": 1,
+      "team": "red",
+      "_id": {
+        "$oid": "55870cf041c6d904e1a20df2"
+      }
+    },
+    {
+      "x": 2,
+      "y": 0,
+      "type": 1,
+      "team": "red",
+      "_id": {
+        "$oid": "55870cf041c6d904e1a20df1"
+      }
+    },
+    {
+      "x": 6,
+      "y": 0,
+      "type": 1,
+      "team": "red",
+      "_id": {
+        "$oid": "55870cf041c6d904e1a20df0"
+      }
+    },
+    {
+      "x": 1,
+      "y": 0,
+      "type": 1,
+      "team": "red",
+      "_id": {
+        "$oid": "55870cf041c6d904e1a20de9"
+      }
+    },
+    {
+      "x": 0,
+      "y": 3,
+      "type": 7,
+      "team": "blue",
+      "_id": {
+        "$oid": "55870eb04426b00de1ea0673"
+      }
+    },
+    {
+      "x": 1,
+      "y": 3,
+      "type": 7,
+      "team": "blue",
+      "_id": {
+        "$oid": "55870eb04426b00de1ea0672"
+      }
+    },
+    {
+      "x": 0,
+      "y": 4,
+      "type": 7,
+      "team": "blue",
+      "_id": {
+        "$oid": "55870eb04426b00de1ea0671"
+      }
+    },
+    {
+      "x": 1,
+      "y": 4,
+      "type": 7,
+      "team": "blue",
+      "_id": {
+        "$oid": "55870eb04426b00de1ea0670"
+      }
+    },
+    {
+      "x": 0,
+      "y": 5,
+      "type": 7,
+      "team": "blue",
+      "_id": {
+        "$oid": "55870eb04426b00de1ea066f"
+      }
+    },
+    {
+      "x": 2,
+      "y": 5,
+      "type": 7,
+      "team": "blue",
+      "_id": {
+        "$oid": "55870eb04426b00de1ea066e"
+      }
+    }
+  ],
+  "tile_data": [
+    [
+      {
+        "type": "forest"
+      },
+      {
+        "type": "forest"
+      },
+      {
+        "type": "forest"
+      },
+      {
+        "type": "grass"
+      },
+      {
+        "type": "grass"
+      },
+      {
+        "type": "castle"
+      },
+      {
+        "type": "castle"
+      }
+    ],
+    [
+      {
+        "type": "forest"
+      },
+      {
+        "type": "water"
+      },
+      {
+        "type": "grass"
+      },
+      {
+        "type": "grass"
+      },
+      {
+        "type": "grass"
+      },
+      {
+        "type": "path"
+      },
+      {
+        "type": "city"
+      }
+    ],
+    [
+      {
+        "type": "water"
+      },
+      {
+        "type": "grass"
+      },
+      {
+        "type": "bridge_right"
+      },
+      {
+        "type": "water"
+      },
+      {
+        "type": "grass"
+      },
+      {
+        "type": "bridge_center"
+      },
+      {
+        "type": "water"
+      }
+    ],
+    [
+      {
+        "type": "swamp"
+      },
+      {
+        "type": "swamp"
+      },
+      {
+        "type": "grass"
+      },
+      {
+        "type": "grass"
+      },
+      {
+        "type": "water"
+      },
+      {
+        "type": "path"
+      },
+      {
+        "type": "forest"
+      }
+    ],
+    [
+      {
+        "type": "swamp"
+      },
+      {
+        "type": "swamp"
+      },
+      {
+        "type": "grass"
+      },
+      {
+        "type": "path"
+      },
+      {
+        "type": "path"
+      },
+      {
+        "type": "forest"
+      },
+      {
+        "type": "forest"
+      }
+    ],
+    [
+      {
+        "type": "swamp_castle"
+      },
+      {
+        "type": "swamp_castle"
+      },
+      {
+        "type": "swamp_castle"
+      },
+      {
+        "type": "path"
+      },
+      {
+        "type": "forest"
+      },
+      {
+        "type": "forest"
+      },
+      {
+        "type": "forest"
+      }
+    ]
+  ],
+  "availableTeams": [
+    "green",
+    "red"
+  ]
+}
+

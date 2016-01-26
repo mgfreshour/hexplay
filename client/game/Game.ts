@@ -18,8 +18,8 @@ class Game {
 
     public getAllowedActions (point: IPoint): Array<string> {
         let actions = new Array<string>();
-        let tile = this._map.getTile(point.x, point.y);
-        let unit = this._map.getUnit(point.x, point.y);
+        //let tile = this._map.getTile(point.x, point.y);
+        //let unit = this._map.getUnit(point.x, point.y);
 
         return actions;
     }

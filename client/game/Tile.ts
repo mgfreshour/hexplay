@@ -8,33 +8,34 @@ import Renderable = require('../renderer/Renderable');
  * @constructor
  */
 class Tile extends Renderable {
-    private typeIndex: TileType;
+    private _type: TileType;
+    public get type () { return this._type; }
 
     constructor (options) {
         super(options);
-        this.typeIndex = options.typeIndex;
+        this._type = options.type;
     }
 
     /**
      * @method createTileForTypeIndex
      * @static
-     * @param {Number} typeIndex
+     * @param {string} typeIndex
      * @return {Tile}
      */
-    public static createTileForTypeIndex (typeIndex) {
-        let tile, tileType = TileType.get(typeIndex);
-        if (!tileType) {
+    public static createTileForTypeIndex (typeIndex: string) {
+        let tile, type = TileType.getType(typeIndex);
+        if (!type) {
             throw 'Tile type not found ' + typeIndex;
         }
         tile = new Tile({
             img: {
-                src:    tileType.img,
-                x:      tileType.imgX,
-                y:      tileType.imgY,
+                src:    type.img,
+                x:      type.imgX,
+                y:      type.imgY,
                 height: Hex.HEX_HEIGHT,
                 width:  Hex.HEX_WIDTH,
             },
-            typeIndex: typeIndex,
+            type: type,
         });
 
         return tile;

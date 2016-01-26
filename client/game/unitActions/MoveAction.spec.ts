@@ -45,6 +45,8 @@ describe('UnitActions.Move', function () {
 
         it('returns true when unit moved to empty hex', function () {
             let ret = testee.perform(game, unit, 4, 4);
+            expect(unit.x).toEqual(4);
+            expect(unit.y).toEqual(4);
             expect(ret).toEqual(true);
         });
 

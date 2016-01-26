@@ -70,7 +70,6 @@ class MoveAction implements IUnitAction {
         actionMap.set(unit.x, unit.y, 'nothing');
 
         game.forEachUnit(function (otherUnit, x, y) {
-            console.error(otherUnit);
             if (unit.team !== otherUnit.team) {
                 actionMap.set(x, y, 'attack');
             } else {

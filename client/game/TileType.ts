@@ -1,5 +1,6 @@
 import Promise = require('bluebird');
 import Renderable = require('../renderer/Renderable');
+import _ = require('lodash');
 /// <reference path='../../typings/tsd.d.ts' />
 'use strict';
 
@@ -9,25 +10,32 @@ import Renderable = require('../renderer/Renderable');
  * @constructor
  */
 class TileType extends Renderable {
+    private static data: Map<string, TileType>;
+
+    private _name: string;
+    public get name () { return this._name; }
 
     constructor (options) {
         super(options);
+        this._name = options.name;
     }
 
-    private static data: Map<string, TileType>;
-
-    public static load (data?: Map<string, TileType>): Promise<void> {
+    public static load (data?: Array<any>): Promise<void> {
         return new Promise<void>(function (resolve, reject) {
+            TileType.data = new Map<string, TileType>();
             if (data) {
-                TileType.data = data;
+                _.each(data, (item) => {
+                    let type = new TileType(item);
+                    TileType.data.set(type.name, type);
+                });
                 return resolve();
             }
-            reject(new Error('Not Implemented'));
+            reject(new Error('Load from Server Not Implemented'));
         });
     }
 
-    public static get (typeIndex: number): TileType {
-        return undefined;
+    public static getType (typeIndex: string): TileType {
+        return TileType.data.get(typeIndex);
     }
 }
 

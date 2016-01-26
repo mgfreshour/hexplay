@@ -9,7 +9,7 @@ describe('MapMask', function () {
         testee = new MapMask(10, 10);
     });
 
-    describe('constructor', function () {
+    describe('#constructor', function () {
         it('sets correct size', function () {
             expect(testee.height).toEqual(10);
             expect(testee.width).toEqual(10);

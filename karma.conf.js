@@ -12,7 +12,10 @@ module.exports = function (config) {
 
 
         // list of files / patterns to load in the browser
-        files: ['client/**/*.spec.ts'],
+        files: [
+            'node_modules/jasmine-promises/dist/jasmine-promises.js',
+            'client/**/*.spec.ts'
+        ],
 
         // list of files to exclude
         exclude: [],
@@ -22,6 +25,7 @@ module.exports = function (config) {
         preprocessors: {
             // add webpack as preprocessor
             'client/**/*.spec.ts': ['webpack', 'sourcemap'],
+            'test_data/**/*.json': ['webpack'],
         },
 
         webpackMiddleware: {
@@ -51,7 +55,7 @@ module.exports = function (config) {
 
 
         // enable / disable watching file and executing tests whenever any file changes
-        autoWatch: false,
+        autoWatch: true,
 
 
         // start these browsers
