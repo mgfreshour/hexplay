@@ -1,178 +1,130 @@
 [
   {
-    "id": 1,
     "img": "/images/tiles.png",
-    "img_x": 0,
-    "img_y": 0,
-    "is_store": false,
+    "imgX": 0,
+    "imgY": 0,
+    "actions": [],
     "name": "grass",
-    "ownable": false,
-    "position": 1,
-    "unit_types_available": []
+    "ownable": false
   },
   {
-    "id": 2,
     "img": "/images/tiles.png",
-    "img_x": 0,
-    "img_y": 72,
-    "is_store": false,
+    "imgX": 0,
+    "imgY": 72,
+    "actions": [],
     "name": "dirt",
-    "ownable": false,
-    "position": 2,
-    "unit_types_available": []
+    "ownable": false
   },
   {
-    "id": 3,
     "img": "/images/tiles.png",
-    "img_x": 0,
-    "img_y": 144,
-    "is_store": true,
+    "imgX": 0,
+    "imgY": 144,
+    "actions": { "shop": { "unitTypesAvailable": ["1", "2"] } },
     "name": "city",
-    "ownable": true,
-    "position": 3,
-    "unit_types_available": ["1", "2"]
+    "ownable": true
   },
   {
-    "id": 4,
     "img": "/images/tiles.png",
-    "img_x": 0,
-    "img_y": 216,
-    "is_store": true,
+    "imgX": 0,
+    "imgY": 216,
+    "actions": { "shop": { "unitTypesAvailable": ["3", "4", "5", "6"] } },
     "name": "castle",
-    "ownable": true,
-    "position": 4,
-    "unit_types_available": ["3", "4", "5", "6"]
+    "ownable": true
   },
   {
-    "id": 5,
     "img": "/images/tiles.png",
-    "img_x": 0,
-    "img_y": 288,
-    "is_store": false,
+    "imgX": 0,
+    "imgY": 288,
+    "actions": [],
     "name": "water",
-    "ownable": false,
-    "position": 5,
-    "unit_types_available": []
+    "ownable": false
   },
   {
-    "id": 6,
     "img": "/images/tiles.png",
-    "img_x": 0,
-    "img_y": 360,
-    "is_store": false,
+    "imgX": 0,
+    "imgY": 360,
+    "actions": [],
     "name": "bridge_left",
-    "ownable": false,
-    "position": 6,
-    "unit_types_available": []
+    "ownable": false
   },
   {
-    "id": 7,
     "img": "/images/tiles.png",
-    "img_x": 0,
-    "img_y": 432,
-    "is_store": false,
+    "imgX": 0,
+    "imgY": 432,
+    "actions": [],
     "name": "bridge_right",
-    "ownable": false,
-    "position": 7,
-    "unit_types_available": []
+    "ownable": false
   },
   {
-    "id": 8,
     "img": "/images/tiles.png",
-    "img_x": 0,
-    "img_y": 504,
-    "is_store": false,
+    "imgX": 0,
+    "imgY": 504,
+    "actions": [],
     "name": "bridge_center",
-    "ownable": false,
-    "position": 8,
-    "unit_types_available": []
+    "ownable": false
   },
   {
-    "id": 9,
     "img": "/images/tiles.png",
-    "img_x": 0,
-    "img_y": 576,
-    "is_store": false,
+    "imgX": 0,
+    "imgY": 576,
+    "actions": [],
     "name": "path",
-    "ownable": false,
-    "position": 9,
-    "unit_types_available": []
+    "ownable": false
   },
   {
-    "id": 10,
     "img": "/images/tiles.png",
-    "img_x": 0,
-    "img_y": 648,
-    "is_store": false,
+    "imgX": 0,
+    "imgY": 648,
+    "actions": [],
     "name": "swamp",
-    "ownable": false,
-    "position": 10,
-    "unit_types_available": []
+    "ownable": false
   },
   {
-    "id": 11,
     "img": "/images/tiles.png",
-    "img_x": 0,
-    "img_y": 720,
-    "is_store": false,
+    "imgX": 0,
+    "imgY": 720,
+    "actions": [],
     "name": "desert",
-    "ownable": false,
-    "position": 11,
-    "unit_types_available": []
+    "ownable": false
   },
   {
-    "id": 12,
     "img": "/images/tiles.png",
-    "img_x": 0,
-    "img_y": 792,
-    "is_store": false,
+    "imgX": 0,
+    "imgY": 792,
+    "actions": [],
     "name": "oasis",
-    "ownable": false,
-    "position": 12,
-    "unit_types_available": []
+    "ownable": false
   },
   {
-    "id": 13,
     "img": "/images/tiles.png",
-    "img_x": 0,
-    "img_y": 864,
-    "is_store": false,
+    "imgX": 0,
+    "imgY": 864,
+    "actions": [],
     "name": "forest",
-    "ownable": false,
-    "position": 13,
-    "unit_types_available": []
+    "ownable": false
   },
   {
-    "id": 14,
     "img": "/images/tiles.png",
-    "img_x": 0,
-    "img_y": 936,
-    "is_store": false,
+    "imgX": 0,
+    "imgY": 936,
+    "actions": [],
     "name": "hills",
-    "ownable": false,
-    "position": 14,
-    "unit_types_available": []
+    "ownable": false
   },
   {
-    "id": 15,
     "img": "/images/tiles.png",
-    "img_x": 0,
-    "img_y": 1008,
-    "is_store": false,
+    "imgX": 0,
+    "imgY": 1008,
+    "actions": [],
     "name": "mountains",
-    "ownable": false,
-    "position": 15,
-    "unit_types_available": []
+    "ownable": false
   },
   {
-    "id": 16,
     "img": "/images/tiles.png",
-    "img_x": 0,
-    "img_y": 1080,
-    "is_store": true,
+    "imgX": 0,
+    "imgY": 1080,
+    "actions": { "shop": { "unitTypesAvailable": ["7", "8", "9", "10", "11", "12"] } },
     "name": "swamp_castle",
-    "ownable": true,
-    "position": 16,
-    "unit_types_available": ["7", "8", "9", "10", "11", "12"]
+    "ownable": true
   }
 ]

@@ -1,12 +1,8 @@
-import Renderable = require('../renderer/Renderable');
 import Promise = require('bluebird');
+import Renderable = require('../renderer/Renderable');
+import IUnitAction = require('./unitActions/IUnitAction');
+import ActionFactory = require('./unitActions/ActionFactory');
 'use strict';
-
-interface ITerrainModifier {
-    defenseBonus: number;
-    movementCost: number;
-    tileType: string;
-}
 
 /**
  * Represents the unit type, contains the initial properties.
@@ -18,42 +14,14 @@ class UnitType extends Renderable {
 
     private _name: string;
     public get name () { return this._name; }
-    private _actions: string;
+    private _actions: Map<string, IUnitAction>;
     public get actions () { return this._actions; }
-    private _attackRange: number;
-    public get attackRange () { return this._attackRange; }
-    private _startingHealth: number;
-    public get startingHealth () { return this._startingHealth; }
-    private _defensePower: number;
-    public get defensePower () { return this._defensePower; }
-    private _defenseType: string;
-    public get defenseType () { return this._defenseType; }
-    private _attackPowerSoft: number;
-    public get attackPowerSoft () { return this._attackPowerSoft; }
-    private _attackPowerHard: number;
-    public get attackPowerHard () { return this._attackPowerHard; }
-    private _moveRange: number;
-    public get moveRange () { return this._moveRange; }
-    private _price: number;
-    public get price () { return this._price; }
-    private _terrainModifiers: Array<ITerrainModifier>;
-    public get terrainModifiers () { return this._terrainModifiers; }
 
-    constructor (options) {
-        super(options);
-        this._name             = options.name;
-        this._price            = options.price;
-        this._actions          = options.actions;
-        this._moveRange        = options.moveRange;
-        this._defenseType      = options.defenseType;
-        this._attackRange      = options.attackRange;
-        this._defensePower     = options.defensePower;
-        this._startingHealth   = options.startingHealth;
-        this._attackPowerSoft  = options.attackPowerSoft;
-        this._attackPowerHard  = options.attackPowerHard;
-        this._terrainModifiers = options.terrainModifiers;
-    }
-
+    /**
+     * Loads type data for use.
+     * @param {Array<any>} [data] - type setup to load.
+     * @returns {Promise<void>} resolving when finished.
+     */
     public static load (data?: Array<any>): Promise<void> {
         return new Promise<void>(function (resolve, reject) {
             UnitType.data = new Map<string, UnitType>();
@@ -68,8 +36,23 @@ class UnitType extends Renderable {
         });
     }
 
-    public static getType (typeIndex: string): UnitType {
-        return UnitType.data.get(typeIndex);
+    /**
+     * Gets the type object associated with passed index.
+     * @param {String} name - name of type to get.
+     * @returns {UnitType} Type with name.
+     */
+    public static getType (name: string): UnitType {
+        return UnitType.data.get(name);
+    }
+
+    /**
+     * Constructor.
+     * @param {Object} options - options to load.
+     */
+    constructor (options: any) {
+        super(options);
+        this._name    = options.name;
+        this._actions = ActionFactory.createActions(options.actions);
     }
 }
 

@@ -1,6 +1,7 @@
 'use strict';
 
-import Hex = require('../lib/Hex');
+//import Hex = require('../lib/Hex');
+import IUnitAction = require('./unitActions/IUnitAction');
 import UnitType = require('./UnitType');
 import Sprite = require('../renderer/Sprite');
 
@@ -12,8 +13,9 @@ import Sprite = require('../renderer/Sprite');
 class Unit extends Sprite {
     private _type: UnitType;
     private _health: number;
-    private _team: number;
+    private _team: string;
     private _acted: boolean;
+    private _actions: Map<string, IUnitAction>;
 
 
     get type () { return this._type; }
@@ -31,6 +33,8 @@ class Unit extends Sprite {
         this._health = options.health;
         this._team = options.team;
         this._acted = options.acted;
+
+        this._actions = new Map<string, IUnitAction>();
     }
 
     /**
@@ -41,41 +45,43 @@ class Unit extends Sprite {
      * @param {Number} [health] Health the unit should have.
      * @return {Unit} New Unit.
      */
-    public static createUnitForTypeIndex (typeIndex, team, health) {
-        let unit, unitType = UnitType.get(typeIndex), img = [], text = [];
-        health = health || unitType.startingHealth;
+    public static createUnitForTypeIndex (typeIndex, team?, health?) {
+        let unit, type = UnitType.getType(typeIndex);
+            //img = [], text = [];
+        //health = health || unitType.startingHealth;
 
-        if (!unitType) {
+        if (!type) {
             throw 'Unit type not found ' + typeIndex;
         }
 
         // Unit graphic
-        img.push({
-            src: unitType.img,
-            x: unitType.imgX,
-            y: unitType.imgY,
-            height: Hex.HEX_HEIGHT,
-            width: Hex.HEX_WIDTH,
-        });
-        // Team graphic
-        img.push({
-            src: '/images/misc/flag-' + team + '-icon.png',
-            height: 24,
-            width: 24,
-            offset: { x: 6, y: 1 },
-        });
+        //img.push({
+        //    src: unitType.img,
+        //    x: unitType.imgX,
+        //    y: unitType.imgY,
+        //    height: Hex.HEX_HEIGHT,
+        //    width: Hex.HEX_WIDTH,
+        //});
+        //// Team graphic
+        //img.push({
+        //    src: '/images/misc/flag-' + team + '-icon.png',
+        //    height: 24,
+        //    width: 24,
+        //    offset: { x: 6, y: 1 },
+        //});
         // Stats
-        text.push({ text: health, color: '#FFFFFF', offset: { x: 12, y: 50 } });
-        text.push({ text: '*', color: '#FFFFFF', offset: { x: 0, y: 4 } });
+        //text.push({ text: health, color: '#FFFFFF', offset: { x: 12, y: 50 } });
+        //text.push({ text: '*', color: '#FFFFFF', offset: { x: 0, y: 4 } });
 
         // Setup the unit
         unit = new Unit({
-            type: typeIndex,
-            acted: false,
-            img,
-            text,
-            health,
-            team,
+            type: type,
+            actions: type.actions,
+            //acted: false,
+            //img,
+            //text,
+            //health,
+            //team,
         });
 
         return unit;

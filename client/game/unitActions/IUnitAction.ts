@@ -10,7 +10,6 @@ import Game = require('../Game');
  * @interface
  */
 interface IUnitAction {
-
     /**
      * Updates a mask to represent actions.
      * @method updateMask

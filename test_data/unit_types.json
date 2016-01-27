@@ -1,976 +1,170 @@
 [
   {
-    "attackRange": 1,
-    "startingHealth": 10,
-    "defensePower": 5,
-    "defenseType": "soft",
-    "attackPowerHard": 5,
     "img": "/images/units.png",
     "imgX": 0,
     "imgY": 0,
-    "move_range": 3,
     "name": "human peasant",
-    "price": 100,
-    "actions": [ "move" ],
-    "attackPowerSoft": 7,
-    "terrainModifiers": [
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 8},
-      {
-        "defenseBonus": 3,
-        "movementCost": 1,
-        "tileType": 4},
-      {
-        "defenseBonus": 0,
-        "movementCost": 3,
-        "tileType": 10},
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 9},
-      {
-        "defenseBonus": 0,
-        "movementCost": 2,
-        "tileType": 11},
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 7},
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 2},
-      {
-        "defenseBonus": 3,
-        "movementCost": 1,
-        "tileType": 16},
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 6},
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 1},
-      {
-        "defenseBonus": 2,
-        "movementCost": 2,
-        "tileType": 13},
-      {
-        "defenseBonus": 2,
-        "movementCost": 2,
-        "tileType": 14},
-      {
-        "defenseBonus": 2,
-        "movementCost": 1,
-        "tileType": 3},
-      {
-        "defenseBonus": 0,
-        "movementCost": 3,
-        "tileType": 15},
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 12},
-      {
-        "defenseBonus": 1,
-        "movementCost": 99,
-        "tileType": 5}
-    ]
+    "actions": {
+      "move": {
+        "terrainModifiers": {
+          "grass": 0
+        },
+        "move_range": 3
+      }
+    }
   },
   {
-
-    "attackRange": 2,
-    "startingHealth": 10,
-    "defensePower": 5,
-    "defenseType": "soft",
-    "attackPowerHard": 5,
     "img": "/images/units.png",
     "imgX": 0,
     "imgY": 72,
-    "move_range": 3,
     "name": "human archer",
-    "price": 300,
-    "actions": [ "move" ],
-    "attackPowerSoft": 7,
-    "terrainModifiers": [
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 8},
-      {
-        "defenseBonus": 3,
-        "movementCost": 1,
-        "tileType": 4},
-      {
-        "defenseBonus": 0,
-        "movementCost": 3,
-        "tileType": 10},
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 9},
-      {
-        "defenseBonus": 0,
-        "movementCost": 2,
-        "tileType": 11},
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 7},
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 2},
-      {
-        "defenseBonus": 3,
-        "movementCost": 1,
-        "tileType": 16},
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 6},
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 1},
-      {
-        "defenseBonus": 2,
-        "movementCost": 2,
-        "tileType": 13},
-      {
-        "defenseBonus": 2,
-        "movementCost": 2,
-        "tileType": 14},
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 3},
-      {
-        "defenseBonus": 3,
-        "movementCost": 3,
-        "tileType": 15},
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 12},
-      {
-        "defenseBonus": 0,
-        "movementCost": 99,
-        "tileType": 5}
-    ]
-
+    "actions": {
+      "move": {
+        "terrainModifiers": {
+          "grass": 0
+        },
+        "range": 3
+      }
+    }
   },
   {
-    "attackRange": 1,
-    "startingHealth": 10,
-    "defensePower": 9,
-    "defenseType": "hard",
-    "attackPowerHard": 9,
     "img": "/images/units.png",
     "imgX": 0,
     "imgY": 144,
-    "move_range": 3,
     "name": "human fighter",
-    "price": 300,
-    "actions": [ "move" ],
-    "attackPowerSoft": 9,
-    "terrainModifiers": [
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 8},
-      {
-        "defenseBonus": 3,
-        "movementCost": 1,
-        "tileType": 4},
-      {
-        "defenseBonus": 0,
-        "movementCost": 3,
-        "tileType": 10},
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 9},
-      {
-        "defenseBonus": 0,
-        "movementCost": 2,
-        "tileType": 11},
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 7},
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 2},
-      {
-        "defenseBonus": 3,
-        "movementCost": 1,
-        "tileType": 16},
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 6},
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 1},
-      {
-        "defenseBonus": 2,
-        "movementCost": 2,
-        "tileType": 13},
-      {
-        "defenseBonus": 2,
-        "movementCost": 2,
-        "tileType": 14},
-      {
-        "defenseBonus": 2,
-        "movementCost": 1,
-        "tileType": 3},
-      {
-        "defenseBonus": 3,
-        "movementCost": 99,
-        "tileType": 15},
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 12},
-      {
-        "defenseBonus": 0,
-        "movementCost": 99,
-        "tileType": 5}
-    ]
+    "actions": {
+      "move": {
+        "terrainModifiers": {
+          "grass": 0
+        },
+        "range": 3
+      }
+    }
   },
   {
-    "attackRange": 1,
-    "startingHealth": 10,
-    "defensePower": 15,
-    "defenseType": "hard",
-    "attackPowerHard": 15,
     "img": "/images/units.png",
     "imgX": 0,
     "imgY": 216,
-    "move_range": 5,
     "name": "human knight",
-    "price": 500,
-    "actions": [ "move" ],
-    "attackPowerSoft": 17,
-    "terrainModifiers": [
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 8},
-      {
-        "defenseBonus": 2,
-        "movementCost": 1,
-        "tileType": 4},
-      {
-        "defenseBonus": 0,
-        "movementCost": 3,
-        "tileType": 10},
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 9},
-      {
-        "defenseBonus": 0,
-        "movementCost": 2,
-        "tileType": 11},
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 7},
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 2},
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 16},
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 6},
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 1},
-      {
-        "defenseBonus": 1,
-        "movementCost": 2,
-        "tileType": 13},
-      {
-        "defenseBonus": 1,
-        "movementCost": 2,
-        "tileType": 14},
-      {
-        "defenseBonus": 1,
-        "movementCost": 1,
-        "tileType": 3},
-      {
-        "defenseBonus": 1,
-        "movementCost": 99,
-        "tileType": 15},
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 12},
-      {
-        "defenseBonus": 0,
-        "movementCost": 99,
-        "tileType": 5}
-    ]
+    "actions": {
+      "move": {
+        "terrainModifiers": {
+          "grass": 0
+        },
+        "range": 5
+      }
+    }
   },
   {
-    "attackRange": 3,
-    "startingHealth": 10,
-    "defensePower": 5,
-    "defenseType": "soft",
-    "attackPowerHard": 12,
     "img": "/images/units.png",
     "imgX": 0,
     "imgY": 288,
-    "move_range": 3,
     "name": "Archmage",
-    "price": 1000,
-    "actions": [ "move" ],
-    "attackPowerSoft": 15,
-    "terrainModifiers": [
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 8},
-      {
-        "defenseBonus": 3,
-        "movementCost": 1,
-        "tileType": 4},
-      {
-        "defenseBonus": 0,
-        "movementCost": 3,
-        "tileType": 10},
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 9},
-      {
-        "defenseBonus": 0,
-        "movementCost": 2,
-        "tileType": 11},
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 7},
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 2},
-      {
-        "defenseBonus": 3,
-        "movementCost": 1,
-        "tileType": 16},
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 6},
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 1},
-      {
-        "defenseBonus": 2,
-        "movementCost": 2,
-        "tileType": 13},
-      {
-        "defenseBonus": 2,
-        "movementCost": 2,
-        "tileType": 14},
-      {
-        "defenseBonus": 2,
-        "movementCost": 1,
-        "tileType": 3},
-      {
-        "defenseBonus": 3,
-        "movementCost": 3,
-        "tileType": 15},
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 12},
-      {
-        "defenseBonus": 0,
-        "movementCost": 99,
-        "tileType": 5}
-    ]
+    "actions": {
+      "move": {
+        "terrainModifiers": {
+          "grass": 0
+        },
+        "range": 3
+      }
+    }
   },
   {
-    "attackRange": 1,
-    "startingHealth": 10,
-    "defensePower": 9,
-    "defenseType": "hard",
-    "attackPowerHard": 12,
     "img": "/images/units.png",
     "imgX": 0,
     "imgY": 360,
-    "move_range": 5,
     "name": "Griffin Rider",
-    "price": 800,
-    "actions": [ "move" ],
-    "attackPowerSoft": 15,
-    "terrainModifiers": [
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 8},
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 4},
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 10},
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 9},
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 11},
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 7},
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 2},
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 16},
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 6},
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 1},
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 13},
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 14},
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 3},
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 15},
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 12},
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 5}
-    ]
+    "actions": {
+      "move": {
+        "terrainModifiers": {
+          "grass": 0
+        },
+        "range": 5
+      }
+    }
   },
   {
-    "attackRange": 1,
-    "startingHealth": 10,
-    "defensePower": 5,
-    "defenseType": "soft",
-    "attackPowerHard": 5,
     "img": "/images/units.png",
     "imgX": 0,
     "imgY": 432,
-    "move_range": 3,
     "name": "undead thrall",
-    "price": 150,
-    "actions": [ "move" ],
-    "attackPowerSoft": 7,
-    "terrainModifiers": [
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 8},
-      {
-        "defenseBonus": 3,
-        "movementCost": 1,
-        "tileType": 4},
-      {
-        "defenseBonus": 2,
-        "movementCost": 2,
-        "tileType": 10},
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 9},
-      {
-        "defenseBonus": 0,
-        "movementCost": 2,
-        "tileType": 11},
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 7},
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 2},
-      {
-        "defenseBonus": 3,
-        "movementCost": 1,
-        "tileType": 16},
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 6},
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 1},
-      {
-        "defenseBonus": 2,
-        "movementCost": 2,
-        "tileType": 13},
-      {
-        "defenseBonus": 2,
-        "movementCost": 2,
-        "tileType": 14},
-      {
-        "defenseBonus": 2,
-        "movementCost": 1,
-        "tileType": 3},
-      {
-        "defenseBonus": 3,
-        "movementCost": 3,
-        "tileType": 15},
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 12},
-      {
-        "defenseBonus": 0,
-        "movementCost": 99,
-        "tileType": 5}
-    ]
+    "actions": {
+      "move": {
+        "terrainModifiers": {
+          "grass": 0
+        },
+        "range": 3
+      }
+    }
   },
   {
-    "attackRange": 2,
-    "startingHealth": 10,
-    "defensePower": 5,
-    "defenseType": "soft",
-    "attackPowerHard": 7,
     "img": "/images/units.png",
     "imgX": 0,
     "imgY": 504,
-    "move_range": 3,
     "name": "undead archer",
-    "price": 350,
-    "actions": [ "move" ],
-    "attackPowerSoft": 9,
-    "terrainModifiers": [
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 8},
-      {
-        "defenseBonus": 3,
-        "movementCost": 1,
-        "tileType": 4},
-      {
-        "defenseBonus": 2,
-        "movementCost": 2,
-        "tileType": 10},
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 9},
-      {
-        "defenseBonus": 0,
-        "movementCost": 2,
-        "tileType": 11},
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 7},
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 2},
-      {
-        "defenseBonus": 3,
-        "movementCost": 1,
-        "tileType": 16},
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 6},
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 1},
-      {
-        "defenseBonus": 2,
-        "movementCost": 2,
-        "tileType": 13},
-      {
-        "defenseBonus": 2,
-        "movementCost": 2,
-        "tileType": 14},
-      {
-        "defenseBonus": 2,
-        "movementCost": 1,
-        "tileType": 3},
-      {
-        "defenseBonus": 3,
-        "movementCost": 3,
-        "tileType": 15},
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 12},
-      {
-        "defenseBonus": 0,
-        "movementCost": 99,
-        "tileType": 5}
-    ]
+    "actions": {
+      "move": {
+        "terrainModifiers": {
+          "grass": 0
+        },
+        "range": 3
+      }
+    }
   },
   {
-    "attackRange": 1,
-    "startingHealth": 10,
-    "defensePower": 5,
-    "defenseType": "soft",
-    "attackPowerHard": 10,
     "img": "/images/units.png",
     "imgX": 0,
     "imgY": 576,
-    "move_range": 3,
     "name": "undead fighter",
-    "price": 400,
-    "actions": [ "move" ],
-    "attackPowerSoft": 12,
-    "terrainModifiers": [
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 8},
-      {
-        "defenseBonus": 3,
-        "movementCost": 1,
-        "tileType": 4},
-      {
-        "defenseBonus": 1,
-        "movementCost": 2,
-        "tileType": 10},
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 9},
-      {
-        "defenseBonus": 0,
-        "movementCost": 2,
-        "tileType": 11},
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 7},
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 2},
-      {
-        "defenseBonus": 3,
-        "movementCost": 1,
-        "tileType": 16},
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 6},
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 1},
-      {
-        "defenseBonus": 2,
-        "movementCost": 2,
-        "tileType": 13},
-      {
-        "defenseBonus": 2,
-        "movementCost": 2,
-        "tileType": 14},
-      {
-        "defenseBonus": 2,
-        "movementCost": 1,
-        "tileType": 3},
-      {
-        "defenseBonus": 3,
-        "movementCost": 3,
-        "tileType": 15},
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 12},
-      {
-        "defenseBonus": 0,
-        "movementCost": 99,
-        "tileType": 5}
-    ]
+    "actions": {
+      "move": {
+        "terrainModifiers": {
+          "grass": 0
+        },
+        "range": 3
+      }
+    }
   },
   {
-    "attackRange": 1,
-    "startingHealth": 10,
-    "defensePower": 12,
-    "defenseType": "hard",
-    "attackPowerHard": 16,
     "img": "/images/units.png",
     "imgX": 0,
     "imgY": 648,
-    "move_range": 5,
     "name": "undead knight",
-    "price": 500,
-    "actions": [ "move" ],
-    "attackPowerSoft": 18,
-    "terrainModifiers": [
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 8},
-      {
-        "defenseBonus": 2,
-        "movementCost": 1,
-        "tileType": 4},
-      {
-        "defenseBonus": 1,
-        "movementCost": 2,
-        "tileType": 10},
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 9},
-      {
-        "defenseBonus": 0,
-        "movementCost": 2,
-        "tileType": 11},
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 7},
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 2},
-      {
-        "defenseBonus": 2,
-        "movementCost": 1,
-        "tileType": 16},
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 6},
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 1},
-      {
-        "defenseBonus": 1,
-        "movementCost": 2,
-        "tileType": 13},
-      {
-        "defenseBonus": 1,
-        "movementCost": 2,
-        "tileType": 14},
-      {
-        "defenseBonus": 1,
-        "movementCost": 1,
-        "tileType": 3},
-      {
-        "defenseBonus": 2,
-        "movementCost": 99,
-        "tileType": 15},
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 12},
-      {
-        "defenseBonus": 0,
-        "movementCost": 99,
-        "tileType": 5}
-    ]
+    "actions": {
+      "move": {
+        "terrainModifiers": {
+          "grass": 0
+        },
+        "range": 5
+      }
+    }
   },
   {
-    "attackRange": 3,
-    "startingHealth": 10,
-    "defensePower": 0,
-    "defenseType": "soft",
-    "attackPowerHard": 15,
     "img": "/images/units.png",
     "imgX": 0,
     "imgY": 720,
-    "move_range": 3,
     "name": "necromancer",
-    "price": 1000,
-    "actions": [ "move" ],
-    "attackPowerSoft": 15,
-    "terrainModifiers": [
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 8},
-      {
-        "defenseBonus": 3,
-        "movementCost": 1,
-        "tileType": 4},
-      {
-        "defenseBonus": 0,
-        "movementCost": 3,
-        "tileType": 10},
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 9},
-      {
-        "defenseBonus": 0,
-        "movementCost": 2,
-        "tileType": 11},
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 7},
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 2},
-      {
-        "defenseBonus": 3,
-        "movementCost": 1,
-        "tileType": 16},
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 6},
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 1},
-      {
-        "defenseBonus": 2,
-        "movementCost": 1,
-        "tileType": 13},
-      {
-        "defenseBonus": 2,
-        "movementCost": 2,
-        "tileType": 14},
-      {
-        "defenseBonus": 2,
-        "movementCost": 1,
-        "tileType": 3},
-      {
-        "defenseBonus": 3,
-        "movementCost": 3,
-        "tileType": 15},
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 12},
-      {
-        "defenseBonus": 0,
-        "movementCost": 99,
-        "tileType": 5}
-    ]
+    "actions": {
+      "move": {
+        "terrainModifiers": {
+          "grass": 0
+        },
+        "range": 3
+      }
+    }
   },
   {
-    "attackRange": 1,
-    "startingHealth": 10,
-    "defensePower": 20,
-    "defenseType": "hard",
-    "attackPowerHard": 18,
     "img": "/images/units.png",
     "imgX": 0,
     "imgY": 792,
-    "move_range": 3,
     "name": "bone dragon",
-    "price": 800,
-    "actions": [ "move" ],
-    "attackPowerSoft": 20,
-    "terrainModifiers": [
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 8},
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 4},
-      {
-        "defenseBonus": 0,
-        "movementCost": 2,
-        "tileType": 10},
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 9},
-      {
-        "defenseBonus": 0,
-        "movementCost": 2,
-        "tileType": 11},
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 7},
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 2},
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 16},
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 6},
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 1},
-      {
-        "defenseBonus": 0,
-        "movementCost": 2,
-        "tileType": 13},
-      {
-        "defenseBonus": 0,
-        "movementCost": 2,
-        "tileType": 14},
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 3},
-      {
-        "defenseBonus": 0,
-        "movementCost": 99,
-        "tileType": 15},
-      {
-        "defenseBonus": 0,
-        "movementCost": 1,
-        "tileType": 12},
-      {
-        "defenseBonus": 0,
-        "movementCost": 99,
-        "tileType": 5}
-    ]
+    "actions": {
+      "move": {
+        "terrainModifiers": {
+          "grass": 0
+        },
+        "range": 3
+      }
+    }
   }
 ]

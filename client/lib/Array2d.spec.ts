@@ -16,8 +16,8 @@ describe('utils.Array2d', function () {
         it('should set height and width', function () {
             let height = 6, width = 5;
             testee = new Array2d(height, width);
-            expect(testee.getHeight()).toEqual(height);
-            expect(testee.getWidth()).toEqual(width);
+            expect(testee.height).toEqual(height);
+            expect(testee.width).toEqual(width);
         });
     });
 

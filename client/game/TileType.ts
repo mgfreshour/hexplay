@@ -14,6 +14,10 @@ class TileType extends Renderable {
 
     private _name: string;
     public get name () { return this._name; }
+    private _actions: Array<any>;
+    public get actions () { return this._actions; }
+    private _ownable: boolean;
+    public get ownable () { return this.ownable; }
 
     constructor (options) {
         super(options);

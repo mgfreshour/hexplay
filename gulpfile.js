@@ -72,7 +72,7 @@ var webpack = require('webpack');
 gulp.task('compile:client', function(callback) {
     webpack(require('./webpack.config.js'), function(err, stats) {
         if (err) throw new gutil.PluginError('webpack', err);
-        gutil.log('[webpack]', stats.toString());
+        gutil.log('[compile:client]', stats.toString());
         callback();
     });
 });

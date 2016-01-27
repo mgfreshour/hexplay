@@ -5,17 +5,30 @@ import Unit = require('../Unit');
 import MapMask = require('../../lib/MapMask');
 import Game = require('../Game');
 import GameMap = require('../GameMap');
+import TileType = require('../TileType');
+
+//let map1Data = require('../../../test_data/map1.json');
+let mapGrassData = require('../../../test_data/map_grass.json');
+let tileTypesData = require('../../../test_data/tile_types.json');
 
 describe('UnitActions.Move', function () {
     let testee: MoveAction;
     let game, map, unit, mask;
 
+
+    beforeAll(function (done) {
+        // create simple mock tile data.
+        TileType.load(tileTypesData)
+            .then(done);
+    });
+
     beforeEach(function () {
-        testee = new MoveAction();
-        map  = new GameMap({height: 10, width: 10});
+        testee = new MoveAction({});
+        map = new GameMap({ height: 6, width: 7 });
+        map.createMapTiles(mapGrassData.tile_data);
         game = new Game({map: map});
         unit = new Unit({x: 2, y: 3, team: 'green'});
-        mask = new MapMask(10, 10);
+        mask = new MapMask(6, 7);
     });
 
     describe('#updateMask', function () {

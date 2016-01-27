@@ -9,8 +9,10 @@ import IPoint = require('./IPoint');
  */
 class Array2d<T> extends events.EventEmitter {
     private data: Array<Array<T>>;
-    private height: number;
-    private width: number;
+    private _height: number;
+    public get height () { return this._height; }
+    private _width: number;
+    public get width () { return this._width; }
 
     /**
      * The constructor.
@@ -28,16 +30,16 @@ class Array2d<T> extends events.EventEmitter {
 
     /**
      * Creates the internal structure for the 2d array.
-     * @param {number} [height] The height of the array.
-     * @param {number} [width] The width of the array.
+     * @param {number} height The height of the array.
+     * @param {number} width The width of the array.
      * @param {*} [value] The value to fill the array with on creation. Defaults to 0.
      * @param {Function} [cloneFn] function to use to copy the value. Defaults to value.clone().
      */
-    public generate (height?: number, width?: number, value?: T, cloneFn?: (item: T) => T): void {
+    public generate (height: number, width: number, value?: T, cloneFn?: (item: T) => T): void {
         let sy: number, sx: number, row: Array<any>;
         this.data = [];
-        this.height = height;
-        this.width = width;
+        this._height = height;
+        this._width = width;
         for (sy = 0; sy < height; sy++) {
             row = [];
             for (sx = 0; sx < width; sx++) {
@@ -57,8 +59,8 @@ class Array2d<T> extends events.EventEmitter {
      */
     public each (callback: (x: number, y: number, item: T) => void): void {
         let x: number, y: number;
-        for (y = 0; y < this.height; y++) {
-            for (x = 0; x < this.width; x++) {
+        for (y = 0; y < this._height; y++) {
+            for (x = 0; x < this._width; x++) {
                 callback(x, y, this.data[y][x]);
             }
 
@@ -71,8 +73,8 @@ class Array2d<T> extends events.EventEmitter {
      */
     public fill (value: any): void {
         let x: number, y: number;
-        for (y = 0; y < this.height; y++) {
-            for (x = 0; x < this.width; x++) {
+        for (y = 0; y < this._height; y++) {
+            for (x = 0; x < this._width; x++) {
                 this.set(x, y, value);
             }
         }
@@ -84,9 +86,9 @@ class Array2d<T> extends events.EventEmitter {
      * @returns {Array2d<R>} Array2d with the same size but the values returned by the callback.
      */
     public map<R> (callback: (x: number, y: number, item: T) => R): Array2d<R> {
-        let ret = new Array2d<R>(this.height, this.width);
-        for (let y = 0; y < this.height; y++) {
-            for (let x = 0; x < this.width; x++) {
+        let ret = new Array2d<R>(this._height, this._width);
+        for (let y = 0; y < this._height; y++) {
+            for (let x = 0; x < this._width; x++) {
                 ret.data[y][x] = callback(x, y, this.data[y][x]);
             }
         }
@@ -136,27 +138,11 @@ class Array2d<T> extends events.EventEmitter {
     }
 
     /**
-     * Returns the internal data structure
-     * @returns {Array<any>}
+     * Returns the internal data structure.
+     * @returns {Array<any>} internal data reference.
      */
     public getInternalData (): Array<Array<T>> {
         return this.data;
-    }
-
-    /**
-     * Returns the height of the map.
-     * @returns {number} The height of the array.
-     */
-    public getHeight (): number {
-        return this.data.length;
-    }
-
-    /**
-     * Returns the width of the map.
-     * @returns {number} The width of the array.
-     */
-    public getWidth (): number {
-        return this.data[0].length;
     }
 
     /**
@@ -165,8 +151,8 @@ class Array2d<T> extends events.EventEmitter {
      */
     public toString (): string {
         let out: string = '', x: number, y: number;
-        for (y = 0; y < this.height; y++) {
-            for (x = 0; x < this.width; x++) {
+        for (y = 0; y < this._height; y++) {
+            for (x = 0; x < this._width; x++) {
                 out += '[' + this.data[y][x] + ']';
             }
             out += '\n';
