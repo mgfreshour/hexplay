@@ -22,8 +22,10 @@ class MoveAction implements IUnitAction {
      */
     constructor (options: any) {
         this._range = options.range;
+        if (!this._range) { throw new Error('Range must be specified for MoveAction.'); }
+
         this._terrainCosts = new Map<string, number>();
-        //_.each(options.terrainCosts) { ... }
+        _.each(options.terrainCosts, (cost, name) => this._terrainCosts.set(name, cost));
     }
 
     /* tslint:disable:valid-jsdoc */
@@ -55,7 +57,7 @@ class MoveAction implements IUnitAction {
      * @inheritDoc
      */
     public perform (game, unit, x, y): boolean {
-        let actionMap = this._calculateActionMap(unit, game);
+        let actionMap = this._generateMoveMap(unit, game);
 
         if (actionMap.get(x, y) === 'movable') {
             unit.move(x, y);
@@ -67,27 +69,6 @@ class MoveAction implements IUnitAction {
     /* tslint:enable:valid-jsdoc */
 
     /**
-     * @method _calculateActionMap
-     * @param {Unit} unit
-     * @param {Game} game
-     * @returns {Array2d}
-     * @private
-     */
-    private _calculateActionMap (unit: Unit, game: Game): Array2d<string> {
-        let map = game.map,
-            actionMap = new Array2d<string>(map.height, map.width, 'movable');
-
-        actionMap.set(unit.x, unit.y, 'nothing');
-
-        game.forEachUnit(function (otherUnit, x, y) {
-            actionMap.set(x, y, 'invalid');
-        });
-
-        return actionMap;
-    };
-
-
-    /**
      * Generates the map of possible moves.
      * @param {Unit} unit - unit to generate map for.
      * @param {Game} game - game to generate map in.
@@ -96,13 +77,14 @@ class MoveAction implements IUnitAction {
     private _generateMoveMap (unit: Unit, game: Game): Array2d<string> {
         let map = game.map,
             zocMask = this._generateZocMap(unit.team, game),
-            moveMask = new Array2d(map.height, map.width),
+            moveMask = new Array2d(map.height, map.width, 0),
             depthMask = new Array2d(map.height, map.width),
             actionMap;
 
         let callback = (x, y, currDepth, prevX, prevY) => {
             depthMask.set(x, y, currDepth);
-            let hexCost = this._terrainCosts[map.getTile(x, y).type.name];
+            let hexCost = this._terrainCosts.get(map.getTile(x, y).type.name);
+            if (_.isUndefined(hexCost)) { throw new Error('Hex cost not defined for ' + map.getTile(x, y).type.name); }
             let zoc = zocMask.get(x, y);
 
             if (prevY === -1 && prevX === -1) {
@@ -134,7 +116,7 @@ class MoveAction implements IUnitAction {
         };
         Hex.walkAdjacent(unit.x, unit.y, this._range, callback, map.height, map.width);
 
-        actionMap = moveMask.map(function (x, y, value) {
+        actionMap = moveMask.map((x, y, value) => {
             if (value > this._range || value === 0) {
                 return 'invalid';
             }
@@ -164,7 +146,7 @@ class MoveAction implements IUnitAction {
             }
         }
         for (let n = 0; n < game.units.length; n++) {
-            if (game.units[n].team !== team) {
+            if (game.units[n].team === team) {
                 let x = game.units[n].x,
                     y = game.units[n].y;
                 zocMap.set(x, y, 2);

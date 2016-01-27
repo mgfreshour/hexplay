@@ -23,7 +23,7 @@ describe('UnitActions.Move', function () {
     });
 
     beforeEach(function () {
-        testee = new MoveAction({});
+        testee = new MoveAction({ range: 6, terrainCosts: { grass: 1 } });
         map = new GameMap({ height: 6, width: 7 });
         map.createMapTiles(mapGrassData.tile_data);
         game = new Game({map: map});
@@ -48,7 +48,7 @@ describe('UnitActions.Move', function () {
         it('moves unit to new coordinates', function () {
             let x = 0, y = 0;
             while (x++ < 6) {
-                while (y++ < 6) {
+                while (y++ < 5) {
                     testee.perform(game, unit, x, y);
                     expect(unit.x).toEqual(x);
                     expect(unit.y).toEqual(y);
