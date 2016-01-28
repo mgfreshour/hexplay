@@ -6,6 +6,21 @@ import _ = require('lodash');
 import IPoint = require('./IPoint');
 
 
+/* Array Space to Hexes.
+ *  __    __    __    __
+ * /M \__/O \__/  \__/  \__
+ * \__/N \__/  \__/  \__/  \
+ * /  \__/  \__/  \__/  \__/
+ * \__/  \__/  \__/  \__/  \
+ * /P \__/R \__/  \__/  \__/
+ * \__/Q \__/  \__/  \__/  \
+ * /  \__/  \__/  \__/  \__/
+ * \__/  \__/  \__/  \__/
+ *
+ * M =(0,0); N =(1,0); O =(2,0);
+ * P =(0,3); Q =(1,3); R =(2,3)
+ */
+
 /**
  * Class that contains functions for working with a hex map.
  * @class Hex
@@ -243,6 +258,63 @@ class Hex {
             ret = Math.abs(dx) + Math.abs(dy);
         }
         return ret;
+    }
+
+    /**
+     * Returns a string representation of a hex map stored in a 2d array.
+     * @param {Array2d<any>} data array to draw.
+     * @returns {string} Ascii drawing.
+     */
+    public static hexmapString (data: Array2d<any>): string {
+        const width = 9,
+              height = 5,
+              sideLength = 2,
+              template = [
+                    '  _____ ',
+                    ' /     \\ ',
+                    '/XXXXXXX\\',
+                    '\\YYYYYYY/',
+                    ' \\_____/ ',
+              ];
+
+        let splice = function(src, start, val) {
+            return src.slice(0, start) + val + src.slice(start + val.length);
+        };
+
+        let paddingLeft = function (val) {
+            return String('      ' + val).slice(-6) + ' ';
+
+        };
+
+        let lines: Array<string> = [];
+        for (let y = 0; y <= data.height * (sideLength * 2) + sideLength; y++) {
+            let line = '';
+            for (let x = 0; x < data.width * (width - sideLength) + sideLength; x++) {
+                line += ' ';
+            }
+            lines.push(line);
+        }
+        data.each(function (x, y, v) {
+            //x = (width - sideLength) * x;
+            //y = height / 2 * x + (height - 1) * y;
+            let coords = paddingLeft(x + ',' + y);
+            v = paddingLeft(v.substr(0, 6));
+            y = Math.round(y * (height - 1) + (x % 2) * (height - 1) / 2);
+            x = Math.ceil(x * (width - sideLength));
+
+            for (let n = 0; n < template.length; n++) {
+                let line = template[n]
+                    .replace('XXXXXXX', coords)
+                    .replace('YYYYYYY', v);
+                for (let m = 0; m < line.length; m++) {
+                    if (lines[y + n][x + m] === ' ') {
+                        lines[y + n] = splice(lines[y + n], x + m, line[m]);
+                    }
+                }
+            }
+        });
+
+        return '\n' + lines.join('\n');
     }
 }
 

@@ -18,7 +18,7 @@ describe('UnitType', function () {
 
         it('creates the actions', function () {
             let data = [
-                { name: 'human peasant', actions: { move: {} } }
+                { name: 'human peasant', actions: { move: { range: 1 } } }
             ];
             return UnitType.load(data)
                 .then(function () {

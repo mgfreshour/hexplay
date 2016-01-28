@@ -27,7 +27,7 @@ describe('UnitActions.Move', function () {
         map = new GameMap({ height: 6, width: 7 });
         map.createMapTiles(mapGrassData.tile_data);
         game = new Game({map: map});
-        unit = new Unit({x: 2, y: 3, team: 'green'});
+        unit = new Unit({x: 3, y: 4, team: 'green'});
         mask = new MapMask(6, 7);
     });
 
@@ -41,6 +41,41 @@ describe('UnitActions.Move', function () {
         it('masks empty hex clear', function () {
             testee.updateMask(game, unit, mask);
             expect(mask.getTile(4, 4)).toEqual(MapMask.MaskType.MASK_CLEAR);
+        });
+
+        /* Array Space to Hexes.
+         *  __    __    __    __
+         * /  \__/  \__/  \__/  \
+         * \__/Z \__/  \__/  \__/
+         * /Z \__/Z \__/Z \__/  \
+         * \__/E \__/Z \__/Z \__/
+         * /Z*\__/Z*\__/E \__/  \
+         * \__/Z*\__/Z*\__/Z*\__/
+         * /  \__/U \__/Z*\__/  \
+         * \__/  \__/  \__/  \__/
+         * /  \__/  \__/  \__/  \
+         * \__/  \__/  \__/  \__/
+         *
+         */
+        it('masks ZOC correctly', function () {
+            unit = new Unit({x: 2, y: 4, team: 'green'});
+            game.units.push(new Unit({x: 2, y: 1, team: 'red'}));
+            game.units.push(new Unit({x: 4, y: 3, team: 'red'}));
+            testee.updateMask(game, unit, mask);
+            expect(mask.getTile(0, 2)).toEqual(MapMask.MaskType.MASK_CLEAR, '0,2');
+            expect(mask.getTile(1, 3)).toEqual(MapMask.MaskType.MASK_CLEAR, '1,3');
+            expect(mask.getTile(2, 2)).toEqual(MapMask.MaskType.MASK_CLEAR, '2,2');
+            expect(mask.getTile(3, 2)).toEqual(MapMask.MaskType.MASK_CLEAR, '3,2');
+            expect(mask.getTile(4, 3)).toEqual(MapMask.MaskType.MASK_CLEAR, '4,3');
+            expect(mask.getTile(5, 2)).toEqual(MapMask.MaskType.MASK_CLEAR, '5,2');
+
+            expect(mask.getTile(0, 1)).toEqual(MapMask.MaskType.MASK_BLACK, '0,1');
+            expect(mask.getTile(1, 0)).toEqual(MapMask.MaskType.MASK_BLACK, '1,0');
+            expect(mask.getTile(2, 1)).toEqual(MapMask.MaskType.MASK_BLACK, '2,1');
+            expect(mask.getTile(3, 1)).toEqual(MapMask.MaskType.MASK_BLACK, '3,1');
+            expect(mask.getTile(4, 1)).toEqual(MapMask.MaskType.MASK_BLACK, '4,1');
+            expect(mask.getTile(5, 1)).toEqual(MapMask.MaskType.MASK_BLACK, '5,1');
+
         });
     });
 

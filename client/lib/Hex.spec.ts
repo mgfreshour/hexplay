@@ -72,6 +72,50 @@ describe('utils.Hex', function () {
         });
     });
 
+    describe('hexmapString', function () {
+        xit('draws one hex', function () {
+            let testee = new Array2d<string>(1, 1, 'Red');
+            let actual = Hex.hexmapString(testee);
+            let expected = [
+                '   _ _  ',
+                ' /     \\ ',
+                '/  XXX  \\',
+                '\\  YYY  /',
+                ' \\_____/ ',
+                '         ',
+            ].join('\n');
+            expect(actual).toEqual(expected);
+        });
+
+        xit('draws 2x2 hexes', function () {
+            let testee = new Array2d<string>(2, 2, 'Red');
+            let actual = Hex.hexmapString(testee);
+            let expected = [
+                '   _ _  ',
+                ' /     \\ ',
+                '/  XXX  \\',
+                '\\  YYY  /',
+                ' \\_____/ ',
+                '         ',
+            ].join('\n');
+            expect(actual).toEqual(expected);
+        });
+
+        xit('draws 6x7 hexes', function () {
+            let testee = new Array2d<string>(6, 6, 'Red');
+            let actual = Hex.hexmapString(testee);
+            let expected = [
+                '   _ _  ',
+                ' /     \\ ',
+                '/  XXX  \\',
+                '\\  YYY  /',
+                ' \\_____/ ',
+                '         ',
+            ].join('\n');
+            expect(actual).toEqual(expected);
+        });
+    });
+
 });
 
 
