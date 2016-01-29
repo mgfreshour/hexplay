@@ -6,6 +6,7 @@ import MapMask = require('../../lib/MapMask');
 import Game = require('../Game');
 import GameMap = require('../GameMap');
 import TileType = require('../TileType');
+import UnitType = require('../UnitType');
 
 //let map1Data = require('../../../test_data/map1.json');
 let mapGrassData = require('../../../test_data/map_grass.json');
@@ -13,9 +14,16 @@ let tileTypesData = require('../../../test_data/tile_types.json');
 
 describe('UnitActions.Move', function () {
     let testee: MoveAction;
-    let game, map, unit, mask;
+    let game, map, unit, mask, unitType;
 
-
+    beforeAll(function (done) {
+        let data = [{ name: 'testType' }];
+        UnitType.load(data)
+            .then(function () {
+                unitType = UnitType.getType('testType');
+                done();
+            });
+    });
     beforeAll(function (done) {
         // create simple mock tile data.
         TileType.load(tileTypesData)
@@ -23,17 +31,17 @@ describe('UnitActions.Move', function () {
     });
 
     beforeEach(function () {
-        testee = new MoveAction({ range: 6, terrainCosts: { grass: 1 } });
+        testee = new MoveAction({ range: 4, terrainCosts: { grass: 1 } });
         map = new GameMap({ height: 6, width: 7 });
         map.createMapTiles(mapGrassData.tile_data);
         game = new Game({map: map});
-        unit = new Unit({x: 3, y: 4, team: 'green'});
+        unit = new Unit({x: 3, y: 4, team: 'green', type: unitType});
         mask = new MapMask(6, 7);
     });
 
     describe('#updateMask', function () {
         it('masks occupied hex black', function () {
-            game.units.push(new Unit({x: 4, y: 4, team: 'green'}));
+            game.units.push(new Unit({x: 4, y: 4, team: 'green', type: unitType}));
             testee.updateMask(game, unit, mask);
             expect(mask.getTile(4, 4)).toEqual(MapMask.MaskType.MASK_BLACK);
         });
@@ -44,37 +52,50 @@ describe('UnitActions.Move', function () {
         });
 
         /* Array Space to Hexes.
-         *  __    __    __    __
-         * /  \__/  \__/  \__/  \
-         * \__/Z \__/  \__/  \__/
-         * /Z \__/Z \__/Z \__/  \
-         * \__/E \__/Z \__/Z \__/
-         * /Z*\__/Z*\__/E \__/  \
-         * \__/Z*\__/Z*\__/Z*\__/
-         * /  \__/U \__/Z*\__/  \
-         * \__/  \__/  \__/  \__/
-         * /  \__/  \__/  \__/  \
-         * \__/  \__/  \__/  \__/
+         *    _____         _____         _____         _____
+         *   /     \       /     \       /     \       /     \
+         *  /  0,0  \_____/  2,0  \_____/  4,0  \_____/  6,0  \
+         *  \       /     \  zoc  /     \       /     \       /
+         *   \_____/  1,0  \_____/  3,0  \_____/  5,0  \_____/
+         *   /     \  zoc  /     \  zoc  /     \       /     \
+         *  /  0,1  \_____/  2,1  \_____/  4,1  \_____/  6,1  \
+         *  \       /     \ unit  /     \       /     \       /
+         *   \_____/  1,1  \_____/  3,1  \_____/  5,1  \_____/
+         *   /     \  zoc  /     \  zoc  /     \       /     \
+         *  /  0,2  \_____/  2,2  \_____/  4,2  \_____/  6,2  \
+         *  \       /     \  zoc  /     \  zoc  /     \       /
+         *   \_____/  1,2  \_____/  3,2  \_____/  5,2  \_____/
+         *   /     \       /     \  zoc  /     \  zoc  /     \
+         *  /  0,3  \_____/  2,3  \_____/  4,3  \_____/  6,3  \
+         *  \       /     \ XXXXX /     \ unit  /     \       /
+         *   \_____/  1,3  \_____/  3,3  \_____/  5,3  \_____/
+         *   /     \       /     \  zoc  /     \  zoc  /     \
+         *  /  0,4  \_____/  2,4  \_____/  4,4  \_____/  6,4  \
+         *  \       /     \       /     \  zoc  /     \       /
+         *   \_____/  1,4  \_____/  3,4  \_____/  5,4  \_____/
+         *   /     \       /     \       /     \       /     \
+         *  /  0,5  \_____/  2,5  \_____/  4,5  \_____/  6,5  \
+         *  \       /     \       /     \       /     \       /
+         *   \_____/  1,5  \_____/  3,5  \_____/  5,5  \_____/
+         *         \       /     \       /     \       /
+         *          \_____/       \_____/       \_____/
          *
          */
         it('masks ZOC correctly', function () {
-            unit = new Unit({x: 2, y: 4, team: 'green'});
-            game.units.push(new Unit({x: 2, y: 1, team: 'red'}));
-            game.units.push(new Unit({x: 4, y: 3, team: 'red'}));
+            unit = new Unit({x: 2, y: 3, team: 'green', type: unitType});
+            game.units.push(new Unit({x: 2, y: 1, team: 'red', type: unitType}));
+            game.units.push(new Unit({x: 4, y: 3, team: 'red', type: unitType}));
             testee.updateMask(game, unit, mask);
-            expect(mask.getTile(0, 2)).toEqual(MapMask.MaskType.MASK_CLEAR, '0,2');
-            expect(mask.getTile(1, 3)).toEqual(MapMask.MaskType.MASK_CLEAR, '1,3');
-            expect(mask.getTile(2, 2)).toEqual(MapMask.MaskType.MASK_CLEAR, '2,2');
-            expect(mask.getTile(3, 2)).toEqual(MapMask.MaskType.MASK_CLEAR, '3,2');
-            expect(mask.getTile(4, 3)).toEqual(MapMask.MaskType.MASK_CLEAR, '4,3');
-            expect(mask.getTile(5, 2)).toEqual(MapMask.MaskType.MASK_CLEAR, '5,2');
+            expect(mask.getTile(1, 0)).toEqual(MapMask.MaskType.MASK_CLEAR, '1, 0');
+            expect(mask.getTile(1, 1)).toEqual(MapMask.MaskType.MASK_CLEAR, '1, 1');
+            expect(mask.getTile(2, 2)).toEqual(MapMask.MaskType.MASK_CLEAR, '2, 2');
+            expect(mask.getTile(3, 2)).toEqual(MapMask.MaskType.MASK_CLEAR, '3, 2');
+            expect(mask.getTile(3, 3)).toEqual(MapMask.MaskType.MASK_CLEAR, '3, 3');
+            expect(mask.getTile(4, 4)).toEqual(MapMask.MaskType.MASK_CLEAR, '4, 4');
 
-            expect(mask.getTile(0, 1)).toEqual(MapMask.MaskType.MASK_BLACK, '0,1');
-            expect(mask.getTile(1, 0)).toEqual(MapMask.MaskType.MASK_BLACK, '1,0');
-            expect(mask.getTile(2, 1)).toEqual(MapMask.MaskType.MASK_BLACK, '2,1');
-            expect(mask.getTile(3, 1)).toEqual(MapMask.MaskType.MASK_BLACK, '3,1');
-            expect(mask.getTile(4, 1)).toEqual(MapMask.MaskType.MASK_BLACK, '4,1');
-            expect(mask.getTile(5, 1)).toEqual(MapMask.MaskType.MASK_BLACK, '5,1');
+            expect(mask.getTile(3, 1)).toEqual(MapMask.MaskType.MASK_BLACK, '3, 1');
+            expect(mask.getTile(4, 2)).toEqual(MapMask.MaskType.MASK_BLACK, '4, 2');
+            expect(mask.getTile(5, 2)).toEqual(MapMask.MaskType.MASK_BLACK, '5, 2');
 
         });
     });
@@ -100,14 +121,14 @@ describe('UnitActions.Move', function () {
 
         it('does not move unit to occupied hex', function () {
             let x = unit.x, y = unit.y;
-            game.units.push(new Unit({x: 4, y: 4}));
+            game.units.push(new Unit({x: 4, y: 4, team: 'green', type: unitType}));
             testee.perform(game, unit, 4, 4);
             expect(unit.x).toEqual(x);
             expect(unit.y).toEqual(y);
         });
 
         it('returns false when ordered to move to occupied hex', function () {
-            game.units.push(new Unit({x: 4, y: 4}));
+            game.units.push(new Unit({x: 4, y: 4, team: 'green', type: unitType}));
             let ret = testee.perform(game, unit, 4, 4);
             expect(ret).toEqual(false);
         });

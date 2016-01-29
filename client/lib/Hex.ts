@@ -265,7 +265,7 @@ class Hex {
      * @param {Array2d<any>} data array to draw.
      * @returns {string} Ascii drawing.
      */
-    public static hexmapString (data: Array2d<any>): string {
+    public static asciiHexmap (data: Array2d<any>): string {
         const width = 9,
               height = 5,
               sideLength = 2,
@@ -294,11 +294,11 @@ class Hex {
             }
             lines.push(line);
         }
-        data.each(function (x, y, v) {
+        data.each(function (x, y, v = '') {
             //x = (width - sideLength) * x;
             //y = height / 2 * x + (height - 1) * y;
-            let coords = paddingLeft(x + ',' + y);
-            v = paddingLeft(v.substr(0, 6));
+            let coords = _.pad(x + ',' + y, 7);
+            v = _.pad((v + '').substr(0, 6), 7);
             y = Math.round(y * (height - 1) + (x % 2) * (height - 1) / 2);
             x = Math.ceil(x * (width - sideLength));
 

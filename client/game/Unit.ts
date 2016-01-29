@@ -30,9 +30,12 @@ class Unit extends Sprite {
     constructor (options: any) {
         super(options);
         this._type = options.type;
-        this._health = options.health;
         this._team = options.team;
+        this._health = options.health;
         this._acted = options.acted;
+
+        if (!this._type) { throw new Error('Type is required in Unit creation.'); }
+        if (!this._team) { throw new Error('Team is required in Unit creation.'); }
 
         this._actions = new Map<string, IUnitAction>();
     }

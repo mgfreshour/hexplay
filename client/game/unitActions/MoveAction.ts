@@ -77,51 +77,43 @@ class MoveAction implements IUnitAction {
     private _generateMoveMap (unit: Unit, game: Game): Array2d<string> {
         let map = game.map,
             zocMask = this._generateZocMap(unit.team, game),
-            moveMask = new Array2d(map.height, map.width, 0),
-            depthMask = new Array2d(map.height, map.width),
+            moveMask = new Array2d(map.height, map.width, Infinity),
             actionMap;
 
         let callback = (x, y, currDepth, prevX, prevY) => {
-            depthMask.set(x, y, currDepth);
             let hexCost = this._terrainCosts.get(map.getTile(x, y).type.name);
             if (_.isUndefined(hexCost)) { throw new Error('Hex cost not defined for ' + map.getTile(x, y).type.name); }
-            let zoc = zocMask.get(x, y);
 
-            if (prevY === -1 && prevX === -1) {
-                moveMask.set(x, y, hexCost);
-                if (zoc && hexCost < this._range) {
-                    if (zoc === 1) {
-                        moveMask.set(x, y, this._range);
-                    } else {
-                        moveMask.set(x, y, Infinity);
+
+            if (prevY !== -1 && prevX !== -1) { // Ignore first pass.
+                let prevCost = moveMask.get(prevX, prevY);
+                let zoc = zocMask.get(x, y);
+                if (zoc) {
+                    if (zoc === 'zoc' && (prevCost + hexCost <= this._range)) {
+                        hexCost = this._range - prevCost;
+                    } else if (zoc === 'unit') { // Unit in this hex
+                        hexCost = Infinity;
                     }
                 }
 
-            } else {
-                if (depthMask.get(prevX, prevY) <= depthMask.get(x, y)) {
-                    if (moveMask.get(prevX, prevY) + hexCost < moveMask.get(x, y) || moveMask.get(x, y) === 0) {
-                        hexCost +=  moveMask.get(prevX, prevY);
-                        moveMask.set(x, y, hexCost);
+                let costFromPrev = prevCost + hexCost;
+                if (costFromPrev < moveMask.get(x, y)) {
+                    hexCost = costFromPrev;
+                    moveMask.set(x, y, hexCost);
+                }
+            }
 
-                        if (zoc && hexCost < this._range) {
-                            if (zoc === 1) {
-                                moveMask.set(x, y, this._range);
-                            } else {
-                                moveMask.set(x, y, Infinity);
-                            }
-                        }
-                    }
-                } // end from correct prev
-            } // end if/else no prev
         };
+        moveMask.set(unit.x, unit.y, 0);
         Hex.walkAdjacent(unit.x, unit.y, this._range, callback, map.height, map.width);
 
         actionMap = moveMask.map((x, y, value) => {
-            if (value > this._range || value === 0) {
+            if (value > this._range || value === -1) {
                 return 'invalid';
             }
             return 'movable';
         });
+        actionMap.set(unit.x, unit.y, 'self');
 
         return actionMap;
     }
@@ -132,25 +124,23 @@ class MoveAction implements IUnitAction {
      * @param {Game} game - game to generate for.
      * @return {Array2d} Map where 1 is in ZOC and 2 is enemy unit.
      */
-    private _generateZocMap (team: string, game: Game): Array2d<number> {
+    private _generateZocMap (team: string, game: Game): Array2d<string> {
         let height = game.map.height,
             width = game.map.width,
-            zocMap = new Array2d<number>(height, width);
+            zocMap = new Array2d<string>(height, width);
 
         for (let n = 0; n < game.units.length; n++) {
             if (game.units[n].team !== team) {
                 let x = game.units[n].x,
                     y = game.units[n].y;
                 let coords = Hex.getAdjacentCoords(x, y, height, width);
-                zocMap.setMulti(coords, 1);
+                zocMap.setMulti(coords, 'zoc');
             }
         }
         for (let n = 0; n < game.units.length; n++) {
-            if (game.units[n].team === team) {
-                let x = game.units[n].x,
-                    y = game.units[n].y;
-                zocMap.set(x, y, 2);
-            }
+            let x = game.units[n].x,
+                y = game.units[n].y;
+            zocMap.set(x, y, 'unit');
         }
 
         return zocMap;
