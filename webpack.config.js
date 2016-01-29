@@ -11,7 +11,7 @@ module.exports = {
     ],
     entry: {
         index: './index.html',
-        //app: './app.ts',
+        app: './app.ts',
     },
     output: {
         path: path.join(__dirname, 'public'),

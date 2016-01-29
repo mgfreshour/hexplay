@@ -1,7 +1,6 @@
 'use strict';
 
 import MoveAction = require('./MoveAction');
-import Unit = require('../Unit');
 import MapMask = require('../../lib/MapMask');
 import Game = require('../Game');
 import GameMap = require('../GameMap');
@@ -14,15 +13,12 @@ let tileTypesData = require('../../../test_data/tile_types.json');
 
 describe('UnitActions.Move', function () {
     let testee: MoveAction;
-    let game, map, unit, mask, unitType;
+    let game, map, unit, mask;
 
     beforeAll(function (done) {
-        let data = [{ name: 'testType' }];
+        let data = [{ name: 'testType', actions: { move: { range: 4 } } }];
         UnitType.load(data)
-            .then(function () {
-                unitType = UnitType.getType('testType');
-                done();
-            });
+            .then(done);
     });
     beforeAll(function (done) {
         // create simple mock tile data.
@@ -35,13 +31,13 @@ describe('UnitActions.Move', function () {
         map = new GameMap({ height: 6, width: 7 });
         map.createMapTiles(mapGrassData.tile_data);
         game = new Game({map: map});
-        unit = new Unit({x: 3, y: 4, team: 'green', type: unitType});
+        unit = game.createUnit({ x: 2, y: 3, type: 'testType', team: 'green'});
         mask = new MapMask(6, 7);
     });
 
     describe('#updateMask', function () {
         it('masks occupied hex black', function () {
-            game.units.push(new Unit({x: 4, y: 4, team: 'green', type: unitType}));
+            game.createUnit({ x: 4, y: 4, type: 'testType', team: 'green'});
             testee.updateMask(game, unit, mask);
             expect(mask.getTile(4, 4)).toEqual(MapMask.MaskType.MASK_BLACK);
         });
@@ -82,9 +78,8 @@ describe('UnitActions.Move', function () {
          *
          */
         it('masks ZOC correctly', function () {
-            unit = new Unit({x: 2, y: 3, team: 'green', type: unitType});
-            game.units.push(new Unit({x: 2, y: 1, team: 'red', type: unitType}));
-            game.units.push(new Unit({x: 4, y: 3, team: 'red', type: unitType}));
+            game.createUnit({ x: 2, y: 1, type: 'testType', team: 'red'});
+            game.createUnit({ x: 4, y: 3, type: 'testType', team: 'red'});
             testee.updateMask(game, unit, mask);
             expect(mask.getTile(1, 0)).toEqual(MapMask.MaskType.MASK_CLEAR, '1, 0');
             expect(mask.getTile(1, 1)).toEqual(MapMask.MaskType.MASK_CLEAR, '1, 1');
@@ -93,7 +88,9 @@ describe('UnitActions.Move', function () {
             expect(mask.getTile(3, 3)).toEqual(MapMask.MaskType.MASK_CLEAR, '3, 3');
             expect(mask.getTile(4, 4)).toEqual(MapMask.MaskType.MASK_CLEAR, '4, 4');
 
+            expect(mask.getTile(2, 0)).toEqual(MapMask.MaskType.MASK_BLACK, '2, 0');
             expect(mask.getTile(3, 1)).toEqual(MapMask.MaskType.MASK_BLACK, '3, 1');
+            expect(mask.getTile(3, 0)).toEqual(MapMask.MaskType.MASK_BLACK, '3, 0');
             expect(mask.getTile(4, 2)).toEqual(MapMask.MaskType.MASK_BLACK, '4, 2');
             expect(mask.getTile(5, 2)).toEqual(MapMask.MaskType.MASK_BLACK, '5, 2');
 
@@ -121,14 +118,14 @@ describe('UnitActions.Move', function () {
 
         it('does not move unit to occupied hex', function () {
             let x = unit.x, y = unit.y;
-            game.units.push(new Unit({x: 4, y: 4, team: 'green', type: unitType}));
+            game.createUnit({ x: 4, y: 4, type: 'testType', team: 'red'});
             testee.perform(game, unit, 4, 4);
             expect(unit.x).toEqual(x);
             expect(unit.y).toEqual(y);
         });
 
         it('returns false when ordered to move to occupied hex', function () {
-            game.units.push(new Unit({x: 4, y: 4, team: 'green', type: unitType}));
+            game.createUnit({ x: 4, y: 4, type: 'testType', team: 'red'});
             let ret = testee.perform(game, unit, 4, 4);
             expect(ret).toEqual(false);
         });

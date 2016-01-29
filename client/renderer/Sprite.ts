@@ -3,9 +3,8 @@ import Renderable = require('./Renderable');
 'use strict';
 
 /**
- * A Sprite is a renderable object that contains it's own position in world space
+ * A Sprite is a renderable object that contains it's own position in world space.
  * @class Sprite
- * @constructor
  * @extends Renderable
  */
 class Sprite extends Renderable {
@@ -17,6 +16,7 @@ class Sprite extends Renderable {
 
     /**
      * Constructor.
+     * @constructor
      * @param {any} options Object of properties to set.
      */
     constructor (options) {

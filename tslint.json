@@ -162,7 +162,7 @@
     "camelcase": [2, { "properties": "never"}],
     "valid-jsdoc": [2, {
       "requireReturn": false,
-      "matchDescription": "^[A-Z][A-Za-z0-9\\s.!,]*[.]$"
+      "matchDescription": "^[A-Z][A-Za-z0-9\\s.!:',]*[.]$"
     }],
     "require-jsdoc": [2, {
       "require": {

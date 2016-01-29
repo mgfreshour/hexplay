@@ -22,10 +22,12 @@ class Unit extends Sprite {
     get health () { return this._health; }
     get team () { return this._team; }
     get acted () { return this._acted; }
+    get actions () { return this._actions; }
 
     /**
      * Constructor.
      * @param {any} options Object of properties to set.
+     * @param {Map<string, IUnitAction>} options.actions Actions from the type.
      */
     constructor (options: any) {
         super(options);
@@ -38,23 +40,25 @@ class Unit extends Sprite {
         if (!this._team) { throw new Error('Team is required in Unit creation.'); }
 
         this._actions = new Map<string, IUnitAction>();
+        options.actions.forEach((name, action) => this._actions.set(name, _.clone(action)));
     }
 
     /**
      * Creates a unit of passed type for team.
      * @static
-     * @param {Number} typeIndex Index into type array.
-     * @param {Number} team Index of team.
-     * @param {Number} [health] Health the unit should have.
+     * @param {any} options Object of properties to set.
+     * @param {Number} options.typeIndex Index into type array.
+     * @param {Number} options.team Index of team.
+     * @param {Number} [options.health] Health the unit should have.
      * @return {Unit} New Unit.
      */
-    public static createUnitForTypeIndex (typeIndex, team?, health?) {
-        let unit, type = UnitType.getType(typeIndex);
+    public static createUnitForTypeIndex (options) {
+        let unit, type = UnitType.getType(options.type);
             //img = [], text = [];
         //health = health || unitType.startingHealth;
 
         if (!type) {
-            throw 'Unit type not found ' + typeIndex;
+            throw 'Unit type not found ' + options.type;
         }
 
         // Unit graphic
@@ -80,6 +84,9 @@ class Unit extends Sprite {
         unit = new Unit({
             type: type,
             actions: type.actions,
+            team: options.team,
+            x: options.x,
+            y: options.y,
             //acted: false,
             //img,
             //text,

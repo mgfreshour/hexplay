@@ -17,11 +17,27 @@ class Game {
     }
 
     public getAllowedActions (point: IPoint): Array<string> {
-        let actions = new Array<string>();
+        let actions = [];
         //let tile = this._map.getTile(point.x, point.y);
-        //let unit = this._map.getUnit(point.x, point.y);
+        let unit = _.find(this._units, point);
+        actions = actions.concat(unit.actions.keys());
 
         return actions;
+    }
+
+    /**
+     * Creates a unit in the game.
+     * @param {Object} options Unit creation params.
+     * @returns {Unit} Created unit.
+     * @throws If requested x/y are outside of the map.
+     */
+    public createUnit (options: any): Unit {
+        let unit = Unit.createUnitForTypeIndex(options);
+        if (unit.x > this._map.width || unit.y > this._map.height) {
+            throw new Error('Unit coordinates are outside of game map!');
+        }
+        this._units.push(unit);
+        return unit;
     }
 
     public forEachUnit (cb: (unit: Unit, x: number, y: number) => void) {
