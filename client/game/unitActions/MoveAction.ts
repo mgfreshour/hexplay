@@ -129,19 +129,13 @@ class MoveAction implements IUnitAction {
             width = game.map.width,
             zocMap = new Array2d<string>(height, width);
 
-        for (let n = 0; n < game.units.length; n++) {
-            if (game.units[n].team !== team) {
-                let x = game.units[n].x,
-                    y = game.units[n].y;
+        game.forEachUnit(function (unit, x, y) {
+            if (unit.team !== team) {
                 let coords = Hex.getAdjacentCoords(x, y, height, width);
                 zocMap.setMulti(coords, 'zoc');
             }
-        }
-        for (let n = 0; n < game.units.length; n++) {
-            let x = game.units[n].x,
-                y = game.units[n].y;
             zocMap.set(x, y, 'unit');
-        }
+        });
 
         return zocMap;
     }

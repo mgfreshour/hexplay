@@ -40,6 +40,10 @@ class Game {
         return unit;
     }
 
+    /**
+     * Loops through all the units in the game.
+     * @param {Function} cb called with the unit and the unit's x, y coordinates at each iteration.
+     */
     public forEachUnit (cb: (unit: Unit, x: number, y: number) => void) {
         _.each(this._units, (unit) => cb(unit, unit.x, unit.y));
     }

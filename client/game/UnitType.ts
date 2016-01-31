@@ -1,7 +1,7 @@
 import Promise = require('bluebird');
 import Renderable = require('../renderer/Renderable');
 import IUnitAction = require('./unitActions/IUnitAction');
-import ActionFactory = require('./unitActions/ActionFactory');
+import ActionFactory = require('./ActionFactory');
 'use strict';
 
 /**
@@ -52,7 +52,7 @@ class UnitType extends Renderable {
     constructor (options: any) {
         super(options);
         this._name    = options.name;
-        this._actions = ActionFactory.createActions(options.actions);
+        this._actions = ActionFactory.createUnitActions(options.actions);
     }
 }
 

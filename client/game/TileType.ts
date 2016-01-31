@@ -1,6 +1,8 @@
+import _ = require('lodash');
 import Promise = require('bluebird');
 import Renderable = require('../renderer/Renderable');
-import _ = require('lodash');
+import ITileAction = require('./tileActions/ITileAction');
+import ActionFactory = require('./ActionFactory');
 /// <reference path='../../typings/tsd.d.ts' />
 'use strict';
 
@@ -14,14 +16,16 @@ class TileType extends Renderable {
 
     private _name: string;
     public get name () { return this._name; }
-    private _actions: Array<any>;
+    private _actions: Map<string, ITileAction>;
     public get actions () { return this._actions; }
-    private _ownable: boolean;
-    public get ownable () { return this.ownable; }
+    //private _ownable: boolean;
+    //public get ownable () { return this.ownable; }
 
     constructor (options) {
         super(options);
         this._name = options.name;
+
+        this._actions = ActionFactory.createTileActions(options.actions);
     }
 
     public static load (data?: Array<any>): Promise<void> {

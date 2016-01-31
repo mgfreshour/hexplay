@@ -40,7 +40,7 @@ class Unit extends Sprite {
         if (!this._team) { throw new Error('Team is required in Unit creation.'); }
 
         this._actions = new Map<string, IUnitAction>();
-        options.actions.forEach((name, action) => this._actions.set(name, _.clone(action)));
+        options.actions.forEach((action, name) => this._actions.set(name, _.clone(action)));
     }
 
     /**
