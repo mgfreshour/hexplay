@@ -13,7 +13,7 @@ describe('Tile', function () {
         return TileType.load(data).then(done);
     });
 
-    fdescribe('createTileForTypeIndex', function () {
+    describe('createTileForTypeIndex', function () {
         it('should create the desired tile', function () {
             let testee = Tile.createTileForTypeIndex('test_type1');
             expect(testee.type.name).toEqual('test_type1');

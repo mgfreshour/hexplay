@@ -47,7 +47,15 @@ describe('Game', function () {
                 .toThrow();
         });
     });
-    it('should not die horrible', function () {
 
+    describe('getUnit', function () {
+        it('returns unit on the hex', function () {
+            let unit = testee.createUnit({ x: 1, y: 2, type: 'testType', team: 'green' });
+            expect(testee.getUnit(1, 2)).toEqual(unit);
+        });
+        it('returns falsy when there is no unit on hex', function () {
+            console.log(testee.getUnit(3, 4));
+            expect(testee.getUnit(3, 4)).toBeFalsy();
+        });
     });
 });

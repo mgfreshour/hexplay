@@ -1,11 +1,11 @@
-'use strict';
-
 import IUnitAction = require('./IUnitAction');
 import Array2d = require('../../lib/Array2d');
 import MapMask = require('../../lib/MapMask');
 import Unit = require('../Unit');
 import Game = require('../Game');
 import Hex = require('../../lib/Hex');
+
+'use strict';
 
 /**
  * Defines the unit action to move.
@@ -14,6 +14,7 @@ class MoveAction implements IUnitAction {
 
     private _range: number;
     private _terrainCosts: Map<string, number>;
+    private _hasMoved: boolean = false;
 
     /**
      * Initializes the action with passed options.
@@ -53,18 +54,26 @@ class MoveAction implements IUnitAction {
         return mask;
     };
 
+
     /**
      * @inheritDoc
      */
-    public perform (game, unit, x, y): boolean {
+    public canPerform (game: Game, unit: Unit): boolean {
+        return !this._hasMoved;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public perform (game, unit, x, y, options?: Array<any>): boolean {
         let actionMap = this._generateMoveMap(unit, game);
 
         if (actionMap.get(x, y) === 'movable') {
             unit.move(x, y);
-            return true;
+            this._hasMoved = true;
         }
 
-        return false;
+        return this._hasMoved;
     };
     /* tslint:enable:valid-jsdoc */
 

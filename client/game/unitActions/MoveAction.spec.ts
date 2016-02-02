@@ -35,7 +35,11 @@ describe('UnitActions.Move', function () {
         mask = new MapMask(6, 7);
     });
 
-    describe('#updateMask', function () {
+    describe('canPerform', function () {
+        it('returns true for unmoved unit');
+    });
+
+    describe('updateMask', function () {
         it('masks occupied hex black', function () {
             game.createUnit({ x: 4, y: 4, type: 'testType', team: 'green'});
             testee.updateMask(game, unit, mask);
@@ -97,7 +101,7 @@ describe('UnitActions.Move', function () {
         });
     });
 
-    describe('#perform', function () {
+    describe('perform', function () {
         it('moves unit to new coordinates', function () {
             let x = 0, y = 0;
             while (x++ < 6) {
@@ -128,6 +132,12 @@ describe('UnitActions.Move', function () {
             game.createUnit({ x: 4, y: 4, type: 'testType', team: 'red'});
             let ret = testee.perform(game, unit, 4, 4);
             expect(ret).toEqual(false);
+        });
+
+        it('marks action as cannot be performed after', function () {
+            expect(testee.canPerform(game, unit)).toBeTruthy();
+            testee.perform(game, unit, 4, 4);
+            expect(testee.canPerform(game, unit)).toBeFalsy();
         });
     });
 });

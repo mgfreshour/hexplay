@@ -47,6 +47,16 @@ class Game {
     public forEachUnit (cb: (unit: Unit, x: number, y: number) => void) {
         _.each(this._units, (unit) => cb(unit, unit.x, unit.y));
     }
+
+    /**
+     * Gets a unit at location.
+     * @param {Number} x Coordinate of request.
+     * @param {Number} y Coordinate of request.
+     * @returns {Unit|undefined}
+     */
+    public getUnit (x: number, y: number): Unit {
+        return _.find(this._units, { x: x, y: y });
+    }
 }
 
 export = Game;

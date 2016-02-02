@@ -10,6 +10,7 @@ import Game = require('../Game');
  * @interface
  */
 interface IUnitAction {
+
     /**
      * Updates a mask to represent actions.
      * @method updateMask
@@ -26,9 +27,18 @@ interface IUnitAction {
      * @param {Unit} unit
      * @param {Number} x
      * @param {Number} y
+     * @param {Array<any>} [options]
      * @return {Boolean} did the action perform?
      */
-    perform (game: Game, unit: Unit, x: number, y: number): boolean;
+    perform (game: Game, unit: Unit, x: number, y: number, options?: Array<any>): boolean;
+
+    /**
+     * Returns whether or not the passes unit is capable of performing action.
+     * @method updateMask
+     * @param {GameMap} game
+     * @param {Unit} unit
+     */
+    canPerform (game: Game, unit: Unit): boolean;
 }
 
 export = IUnitAction;
