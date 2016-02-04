@@ -47,6 +47,15 @@ class GameMap {
     }
 
     /**
+     * Loops through tiles and creates an Array2d of returns from function.
+     * @param {(x, y, tile) => any} callback Called for each tile.
+     * @returns {Array2d} map of callback returns;
+     */
+    public map<R> (callback: (x: number, y: number, item: Tile) => R): Array2d<R> {
+        return this.tiles.map(callback);
+    }
+
+    /**
      * Creates the internal representation of tiles in the map.
      * @param {Array<Array<any>>} tileData Data from server.
      */

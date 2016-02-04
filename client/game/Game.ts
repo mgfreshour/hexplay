@@ -18,9 +18,20 @@ class Game {
 
     public getAllowedActions (point: IPoint): Array<string> {
         let actions = [];
-        //let tile = this._map.getTile(point.x, point.y);
+        let tile = this._map.getTile(point.x, point.y);
+        tile.actions.forEach((action, name) => {
+            if (action.canPerform(this, point.x, point.y)) {
+                actions.push(name);
+            }
+        });
         let unit = _.find(this._units, point);
-        actions = actions.concat(unit.actions.keys());
+        if (unit) {
+            unit.actions.forEach((action, name) => {
+                if (action.canPerform(this, unit)) {
+                    actions.push(name);
+                }
+            });
+        }
 
         return actions;
     }
@@ -52,7 +63,7 @@ class Game {
      * Gets a unit at location.
      * @param {Number} x Coordinate of request.
      * @param {Number} y Coordinate of request.
-     * @returns {Unit|undefined}
+     * @returns {Unit|undefined} Unit found at that location or undefined.
      */
     public getUnit (x: number, y: number): Unit {
         return _.find(this._units, { x: x, y: y });

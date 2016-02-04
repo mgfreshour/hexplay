@@ -1,3 +1,4 @@
+import Hex = require("../lib/Hex");
 'use strict';
 
 import GameMap = require('./GameMap');
@@ -27,12 +28,27 @@ describe('Game', function () {
                     width: 7,
                 });
                 map.createMapTiles(map1Data.tile_data);
+                //console.log(Hex.asciiHexmap(testee.map.map((x, y, tile) => tile.type.name)));
                 done();
             });
     });
 
     beforeEach(function () {
         testee = new Game({ map: map });
+    });
+
+    describe('loadUnits', function () {
+        it('should have units loaded after load');
+    });
+
+    describe('getAllowedActions', function () {
+        it('returns actions of tile', function () {
+            expect(testee.getAllowedActions({ x: 1, y: 5 })).toContain('shop');
+        });
+
+        xit('returns actions from unit', function () {
+            expect(testee.getAllowedActions({ x: 2, y: 2 })).toContain('move');
+        });
     });
 
     describe('createUnit', function () {
