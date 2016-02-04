@@ -19,7 +19,7 @@
     "img": "/images/tiles.png",
     "imgX": 0,
     "imgY": 144,
-    "actions": { "shop": { "unitTypesAvailable": ["1", "2"] } },
+    "actions": { "shop": { "types": ["1", "2"] } },
     "name": "city",
     "ownable": true
   },
@@ -27,7 +27,7 @@
     "img": "/images/tiles.png",
     "imgX": 0,
     "imgY": 216,
-    "actions": { "shop": { "unitTypesAvailable": ["3", "4", "5", "6"] } },
+    "actions": { "shop": { "types": ["3", "4", "5", "6"] } },
     "name": "castle",
     "ownable": true
   },
@@ -123,7 +123,7 @@
     "img": "/images/tiles.png",
     "imgX": 0,
     "imgY": 1080,
-    "actions": { "shop": { "unitTypesAvailable": ["7", "8", "9", "10", "11", "12"] } },
+    "actions": { "shop": { "types": ["7", "8", "9", "10", "11", "12"] } },
     "name": "swamp_castle",
     "ownable": true
   }

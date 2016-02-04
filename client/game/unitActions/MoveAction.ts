@@ -33,6 +33,13 @@ class MoveAction implements IUnitAction {
     /**
      * @inheritDoc
      */
+    public getOptions (game: Game, unit: Unit): Array<any> {
+        return [];
+    }
+
+    /**
+     * @inheritDoc
+     */
     public updateMask (game: Game, unit: Unit, mask: MapMask): MapMask {
         if (unit) {
             let actionMap = this._generateMoveMap(unit, game);

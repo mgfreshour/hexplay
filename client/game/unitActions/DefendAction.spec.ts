@@ -35,12 +35,23 @@ describe('DefendAction', function () {
         mask = new MapMask(6, 7);
     });
 
+
+    describe('getOptions', function () {
+        it('returns nothing', function () {
+            expect(testee.getOptions(game, unit)).toEqual([]);
+        });
+    });
+
     describe('updateMask', function () {
-        it('returns mask untouched');
+        it('returns mask untouched', function () {
+            expect(testee.updateMask(game, unit, mask)).toEqual(mask);
+        });
     });
 
     describe('canPerform', function () {
-        it('always returns false');
+        it('always returns false', function () {
+            expect(testee.canPerform(game, unit)).toEqual(false);
+        });
     });
 
     describe('perform', function () {

@@ -36,7 +36,15 @@ describe('UnitActions.Move', function () {
     });
 
     describe('canPerform', function () {
-        it('returns true for unmoved unit');
+        it('returns true for unmoved unit', function () {
+            expect(testee.canPerform(game, unit)).toEqual(true);
+        });
+    });
+
+    describe('getOptions', function () {
+        it('returns nothing', function () {
+            expect(testee.getOptions(game, unit)).toEqual([]);
+        });
     });
 
     describe('updateMask', function () {

@@ -72,49 +72,49 @@ describe('utils.Hex', function () {
         });
     });
 
-    describe('asciiHexmap', function () {
-        xit('draws one hex', function () {
-            let testee = new Array2d<string>(1, 1, 'Red');
-            let actual = Hex.asciiHexmap(testee);
-            let expected = [
-                '  _____ ',
-                ' /     \\ ',
-                '/  XXX  \\',
-                '\\  YYY  /',
-                ' \\_____/ ',
-                '         ',
-            ].join('\n');
-            expect(actual).toEqual(expected);
-        });
-
-        xit('draws 2x2 hexes', function () {
-            let testee = new Array2d<string>(2, 2, 'Red');
-            let actual = Hex.asciiHexmap(testee);
-            let expected = [
-                '  _____ ',
-                ' /     \\ ',
-                '/  XXX  \\',
-                '\\  YYY  /',
-                ' \\_____/ ',
-                '         ',
-            ].join('\n');
-            expect(actual).toEqual(expected);
-        });
-
-        xit('draws 6x7 hexes', function () {
-            let testee = new Array2d<string>(6, 6, 'Red');
-            let actual = Hex.asciiHexmap(testee);
-            let expected = [
-                '  _____ ',
-                ' /     \\ ',
-                '/  XXX  \\',
-                '\\  YYY  /',
-                ' \\_____/ ',
-                '         ',
-            ].join('\n');
-            expect(actual).toEqual(expected);
-        });
-    });
+    //describe('asciiHexmap', function () {
+    //    it('draws one hex', function () {
+    //        let testee = new Array2d<string>(1, 1, 'Red');
+    //        let actual = Hex.asciiHexmap(testee);
+    //        let expected = [
+    //            '  _____ ',
+    //            ' /     \\ ',
+    //            '/  XXX  \\',
+    //            '\\  YYY  /',
+    //            ' \\_____/ ',
+    //            '         ',
+    //        ].join('\n');
+    //        expect(actual).toEqual(expected);
+    //    });
+    //
+    //    it('draws 2x2 hexes', function () {
+    //        let testee = new Array2d<string>(2, 2, 'Red');
+    //        let actual = Hex.asciiHexmap(testee);
+    //        let expected = [
+    //            '  _____ ',
+    //            ' /     \\ ',
+    //            '/  XXX  \\',
+    //            '\\  YYY  /',
+    //            ' \\_____/ ',
+    //            '         ',
+    //        ].join('\n');
+    //        expect(actual).toEqual(expected);
+    //    });
+    //
+    //    it('draws 6x7 hexes', function () {
+    //        let testee = new Array2d<string>(6, 6, 'Red');
+    //        let actual = Hex.asciiHexmap(testee);
+    //        let expected = [
+    //            '  _____ ',
+    //            ' /     \\ ',
+    //            '/  XXX  \\',
+    //            '\\  YYY  /',
+    //            ' \\_____/ ',
+    //            '         ',
+    //        ].join('\n');
+    //        expect(actual).toEqual(expected);
+    //    });
+    //});
 
 });
 

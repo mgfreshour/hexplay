@@ -25,10 +25,10 @@ interface ITileAction {
      * @param {Game} game Game this action belongs to.
      * @param {Number} x Coordinate of the tile.
      * @param {Number} y Coordinate of the tile.
-     * @param {Array<string> [options] List of options to apply to action.
+     * @param {any} [options] List of options to apply to action.
      * @return {Boolean} did the action perform?
      */
-    perform (game: Game, x: number, y: number, options?: Array<string>): boolean;
+    perform (game: Game, x: number, y: number, options?: any): boolean;
 
     /**
      * Tells if a tile can perform an action.

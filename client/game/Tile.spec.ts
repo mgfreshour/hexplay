@@ -8,7 +8,7 @@ describe('Tile', function () {
     beforeAll(function (done) {
         let data = [
             { name: 'test_type1' },
-            { name: 'test_type2', actions: { shop: {} } },
+            { name: 'test_type2', actions: { shop: { types: {} } } },
         ];
         return TileType.load(data).then(done);
     });

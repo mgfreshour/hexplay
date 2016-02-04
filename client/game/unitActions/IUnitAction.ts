@@ -39,6 +39,14 @@ interface IUnitAction {
      * @param {Unit} unit
      */
     canPerform (game: Game, unit: Unit): boolean;
+
+    /**
+     * Gets available options for the action.
+     * @param {Game} game Game this action belongs to.
+     * @param {Unit} unit Game unit that will perform action.
+     * @return {Boolean} Array of options.
+     */
+    getOptions (game: Game, unit: Unit): Array<any>;
 }
 
 export = IUnitAction;

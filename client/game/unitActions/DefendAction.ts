@@ -24,6 +24,13 @@ class DefendAction implements IUnitAction {
     /**
      * @inheritDoc
      */
+    public getOptions (game: Game, unit: Unit): Array<any> {
+        return [];
+    }
+
+    /**
+     * @inheritDoc
+     */
     public updateMask (game: Game, unit: Unit, mask: MapMask): MapMask {
         return mask;
     };

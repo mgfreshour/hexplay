@@ -18,7 +18,7 @@ describe('TileType', function () {
 
         it('creates the actions', function () {
             let data = [
-                { name: 'test_tile1', actions: { shop: {} } }
+                { name: 'test_tile1', actions: { shop: { types: {} } } }
             ];
             return TileType.load(data)
                 .then(function () {
