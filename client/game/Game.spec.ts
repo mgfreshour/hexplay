@@ -1,20 +1,25 @@
-import Hex = require("../lib/Hex");
-'use strict';
-
 import GameMap = require('./GameMap');
 import TileType = require('./TileType');
 import Game = require('./Game');
 import UnitType = require('./UnitType');
 import Unit = require('./Unit');
+//import Hex = require('../lib/Hex');
+'use strict';
+
 let map1Data = require('../../test_data/map1.json');
 let tileTypesData = require('../../test_data/tile_types.json');
 
+
 describe('Game', function () {
-    let testee, map;
+    let testee: Game, map: GameMap;
 
 
     beforeAll(function (done) {
-        let data = [{ name: 'testType', actions: { move: { range: 4 } } }];
+        let data = [
+            { name: 'testType', actions: { move: { range: 4 } } },
+            { name: 'human peasant', actions: { move: { range: 4 } } },
+            { name: 'undead thrall', actions: { move: { range: 4 } } },
+        ];
         UnitType.load(data)
             .then(done);
     });
@@ -37,8 +42,30 @@ describe('Game', function () {
         testee = new Game({ map: map });
     });
 
+    describe('loadPlayers', function () {
+        it('sets the internal players');
+        it('assigns the teams');
+        it('limits teams to what is allowed in map');
+    });
+
+    describe('loadTurns', function () {
+        beforeEach(function () {
+            //testee.turns
+        });
+
+        it('returns current turn', function () {
+
+        });
+    });
+
     describe('loadUnits', function () {
-        it('should have units loaded after load');
+        it('should have units loaded after load', function () {
+            testee.loadUnits(map1Data.unitData);
+            map1Data.unitData.forEach(function (unit) {
+                expect(testee.getUnit(unit.x, unit.y).team).toEqual(unit.team);
+                expect(testee.getUnit(unit.x, unit.y).type.name).toEqual(unit.type);
+            });
+        });
     });
 
     describe('getAllowedActions', function () {
@@ -69,7 +96,7 @@ describe('Game', function () {
             let unit = testee.createUnit({ x: 1, y: 2, type: 'testType', team: 'green' });
             expect(testee.getUnit(1, 2)).toEqual(unit);
         });
-        it('returns falsy when there is no unit on hex', function () {
+        it('returns false when there is no unit on hex', function () {
             console.log(testee.getUnit(3, 4));
             expect(testee.getUnit(3, 4)).toBeFalsy();
         });

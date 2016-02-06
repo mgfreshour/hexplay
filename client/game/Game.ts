@@ -2,20 +2,76 @@ import GameMap = require('./GameMap');
 import IPoint = require('../lib/IPoint');
 import Unit = require('./Unit');
 import _ = require('lodash');
+import Player = require('./Player');
+import assert = require('assert');
 'use strict';
 
-class Game {
-    private _map: GameMap;
-    private _units: Array<Unit>;
+class Turn {
+    private _player: Player;
+    get player () { return this._player; }
 
+    constructor (options) {
+        this._player = options.player;
+    }
+}
+
+class Game {
+    private _units: Array<Unit>;
     get units () { return this._units; }
+    private _map: GameMap;
     get map () { return this._map; }
+    private _players: Array<Player>;
+    get players () { return this._players; }
+    private _turns: Array<Turn>;
+    get turns () { return this._turns; }
 
     constructor (options) {
         this._map = options.map;
-        this._units = [];
+        assert(this._map, 'Game - Map required');
+        this._players = options.players;
+        this.loadUnits(options.units);
+        if (options.turns) {
+            this.loadTurns(options.turns);
+        }
     }
 
+    public loadTurns (turns: Array<Turn>) {
+        assert(Array.isArray(this._players) && this._players.length > 1, 'Game - Players required');
+        this._turns = [];
+
+    }
+    public get currentTurn (): Turn {
+        return this._turns[this._turns.length - 1];
+    }
+    public get currentPlayer (): Player {
+        return this.currentTurn.player;
+    }
+    public nextTurn () {
+        let pIdx = _.findIndex(this._players, this.currentPlayer) + 1;
+        if (pIdx > this._players.length) {
+            pIdx = 0;
+        }
+        this.turns.push(new Turn({ player: this._players[pIdx] }));
+    }
+
+    /**
+     * Loads the data for units into game.
+     * @param {Array<any>} data Unit information to load.
+     */
+    public loadUnits (data: Array<any>): void {
+        this._units = [];
+        if (Array.isArray(data)) {
+            for (let n = 0; n < data.length; n++) {
+                this.createUnit(data[n]);
+            }
+        }
+    }
+
+    /**
+     * Returns the name of all available actions at a map point.
+     * @param {IPoint} point Location on map.
+     * @returns {Array} List of action names.
+     */
     public getAllowedActions (point: IPoint): Array<string> {
         let actions = [];
         let tile = this._map.getTile(point.x, point.y);
