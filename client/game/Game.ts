@@ -9,9 +9,12 @@ import assert = require('assert');
 class Turn {
     private _player: Player;
     get player () { return this._player; }
+    private _unitPositions: Array<any>;
+    get unitPositions () { return this._unitPositions; }
 
     constructor (options) {
         this._player = options.player;
+        this._unitPositions = options.unitPositions;
     }
 }
 
@@ -35,10 +38,16 @@ class Game {
         }
     }
 
-    public loadTurns (turns: Array<Turn>) {
+    public loadTurns (turns: Array<{ team: string, unitPositions: [any] }>) {
         assert(Array.isArray(this._players) && this._players.length > 1, 'Game - Players required');
+        let playerMap = new Map<string, Player>();
+        _.each(this.players, (player) => playerMap.set(player.team, player));
         this._turns = [];
-
+        _.each(turns, (turn) => {
+            assert(turn.team === this.nextPlayer().team, 'Invalid turn order detected!');
+            this._turns.push(new Turn({ player: playerMap.get(turn.team), unitPositions: turn.unitPositions }));
+        });
+        this.loadUnits(this._turns[this._turns.length - 1].unitPositions);
     }
     public get currentTurn (): Turn {
         return this._turns[this._turns.length - 1];
@@ -46,12 +55,15 @@ class Game {
     public get currentPlayer (): Player {
         return this.currentTurn.player;
     }
-    public nextTurn () {
+    public nextPlayer () {
         let pIdx = _.findIndex(this._players, this.currentPlayer) + 1;
         if (pIdx > this._players.length) {
             pIdx = 0;
         }
-        this.turns.push(new Turn({ player: this._players[pIdx] }));
+        return this._players[pIdx];
+    }
+    public nextTurn () {
+        this.turns.push(new Turn({ player: this.nextPlayer() }));
     }
 
     /**

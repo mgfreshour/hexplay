@@ -10,7 +10,7 @@ class ShopAction implements ITileAction {
 
     constructor (options: any) {
         this._types = options.types;
-        assert(this._types, 'types required');
+        assert(this._types, 'ShopAction - types required');
     }
 
     /* tslint:disable:valid-jsdoc */

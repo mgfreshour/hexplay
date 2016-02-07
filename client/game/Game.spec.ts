@@ -1,45 +1,19 @@
-import GameMap = require('./GameMap');
-import TileType = require('./TileType');
+import GameFactory = require('./GameFactory');
 import Game = require('./Game');
-import UnitType = require('./UnitType');
 import Unit = require('./Unit');
 //import Hex = require('../lib/Hex');
 'use strict';
 
 let map1Data = require('../../test_data/map1.json');
-let tileTypesData = require('../../test_data/tile_types.json');
 
 
 describe('Game', function () {
-    let testee: Game, map: GameMap;
-
-
-    beforeAll(function (done) {
-        let data = [
-            { name: 'testType', actions: { move: { range: 4 } } },
-            { name: 'human peasant', actions: { move: { range: 4 } } },
-            { name: 'undead thrall', actions: { move: { range: 4 } } },
-        ];
-        UnitType.load(data)
-            .then(done);
-    });
-
-    beforeEach(function (done) {
-        // create simple mock tile data.
-        TileType.load(tileTypesData)
-            .then(function () {
-                map = new GameMap({
-                    height: 6,
-                    width: 7,
-                });
-                map.createMapTiles(map1Data.tile_data);
-                //console.log(Hex.asciiHexmap(testee.map.map((x, y, tile) => tile.type.name)));
-                done();
-            });
-    });
+    let testee: Game;
 
     beforeEach(function () {
-        testee = new Game({ map: map });
+        return GameFactory.newTestGame().then(function (game) {
+            testee = game;
+        });
     });
 
     describe('loadPlayers', function () {
@@ -53,9 +27,7 @@ describe('Game', function () {
             //testee.turns
         });
 
-        it('returns current turn', function () {
-
-        });
+        it('returns current turn');
     });
 
     describe('loadUnits', function () {
@@ -80,20 +52,20 @@ describe('Game', function () {
 
     describe('createUnit', function () {
         it('adds the requested unit', function () {
-            let unit = testee.createUnit({ x: 3, y: 4, type: 'testType', team: 'green'});
+            let unit = testee.createUnit({ x: 3, y: 4, type: 'undead thrall', team: 'green'});
             expect(unit).toEqual(jasmine.any(Unit));
             expect(testee.units.length).toEqual(1);
         });
         it('throws an error if unit is outside of map', function () {
             let x = testee.map.width + 1;
-            expect(() => testee.createUnit({ x: x, y: 4, type: 'testType', team: 'green'}))
+            expect(() => testee.createUnit({ x: x, y: 4, type: 'undead thrall', team: 'green'}))
                 .toThrow();
         });
     });
 
     describe('getUnit', function () {
         it('returns unit on the hex', function () {
-            let unit = testee.createUnit({ x: 1, y: 2, type: 'testType', team: 'green' });
+            let unit = testee.createUnit({ x: 1, y: 2, type: 'undead thrall', team: 'green' });
             expect(testee.getUnit(1, 2)).toEqual(unit);
         });
         it('returns false when there is no unit on hex', function () {

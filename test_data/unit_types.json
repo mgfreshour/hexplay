@@ -9,7 +9,7 @@
         "terrainModifiers": {
           "grass": 0
         },
-        "move_range": 3
+        "range": 3
       }
     }
   },
